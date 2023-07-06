@@ -1,17 +1,25 @@
-import React from 'react';
-import Card from '../components/Card';
+import React, { useEffect, useState } from 'react';
+import AgreementReport from '../components/CardsReports/AgreementReport'
+import SoftwareReport from '../components/CardsReports/SoftwareReport'
+import DesingReport from '../components/CardsReports/DesingReport'
+import MarketingReport from '../components/CardsReports/MarketingReport'
+import NursingReport from '../components/CardsReports/NursingReport'
+import GastroReport from '../components/CardsReports/GastroReport'
+import TourismReport from '../components/CardsReports/TourismReport'
 
-function Home() {
+const Home: React.FC = () => {
+
   return (
     <div>
-      <h1>Home</h1>
-      <Card title="Card Title 1" description="Card Description 1" />
-      <Card title="Card Title 2" description="Card Description 2" />
-      <Card title="Card Title 3" description="Card Description 3" />
+      <AgreementReport />
+      <SoftwareReport />
+      <DesingReport/>
+      <MarketingReport/>
+      <NursingReport/>
+      <GastroReport/>
+      <TourismReport/>
     </div>
   );
-}
+};
 
 export default Home;
-
-// About.tsx and Contact.tsx follow the same structure as Home.tsx
