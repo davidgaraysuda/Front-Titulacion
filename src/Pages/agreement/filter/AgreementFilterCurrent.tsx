@@ -1,7 +1,7 @@
 import {Button, Modal, Table, Space, Form, Input, message, Popconfirm } from 'antd';
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
-import AgreementNew from './AgreementNew';
+import AgreementNew from '../AgreementNew';
 
 interface Item {
   agreementId:number, 
@@ -17,7 +17,7 @@ const AgreementPage = () => {
 
   const fetchItems = async () => {
     try {
-      const response = await fetch('http://localhost:8081/agreement/full');
+      const response = await fetch('http://localhost:8081/agreement/current');
       const data = await response.json();
       setData(data);
     } catch (error) {
@@ -59,32 +59,7 @@ const AgreementPage = () => {
     handleCloseModal();
   };
 
-  const handleDeleteData = async (agreementId: number) => {
-    try {
-      await fetch(`http://localhost:8081/agreement/delete/${agreementId}`, {
-        method: 'DELETE',
-      });
-      setData(prevData => prevData.filter(data => data.agreementId !== agreementId));
-      message.success('Item deleted successfully');
-    } catch (error) {
-      console.error(error)
-      message.error('Failed to delete item');
-    }
-  };
-
-  const handleUpdateData = async (agreementId: number) => {
-    try {
-      await fetch(`http://localhost:8081/agreement/`, {
-        method: 'PUT',
-      });
-      setData(prevData => prevData.filter(data => data.agreementId !== agreementId));
-      message.success('Item update successfully');
-    } catch (error) {
-      console.error(error);
-      message.error('Failed to update item');
-    }
-  };
-
+ 
   const handleCancel = () => {
     setVisible(false);
   };

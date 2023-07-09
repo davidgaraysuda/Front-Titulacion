@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Spin } from 'antd';
+import { Button, Card, Statistic} from 'antd';
+import {CheckCircleOutlined} from '@ant-design/icons'
 import axios from 'axios';
 
 interface Data {
@@ -29,17 +30,22 @@ const DataCard: React.FC = () => {
   };
 
   return (
-    <Card title="Convenios Marcos">
-      {loading ? (
-        <Spin />
-      ) : (
-        <>
-          <p>Vigentes: {dataAgreement?.current}</p>
-          <p>Proximos a Caducar (90 días): {dataAgreement?.soon}</p>
-          <p>Caducados: {dataAgreement?.expired}</p>
-          {/* Mostrar más propiedades del JSON según sea necesario */}
-        </>
-      )}
+    <Card title= 'Convenios Marco'>
+      <Statistic
+        value={dataAgreement?.current}
+        valueStyle={{ color: '#52c41a', fontSize: "34px", fontWeight: 'bold' }}
+        prefix="Vigentes: "
+      />
+      <Statistic
+        value={dataAgreement?.soon}
+        valueStyle={{ color: '#36cfc9', fontSize: "34px", fontWeight: 'bold' }}
+        prefix="Proximos a acabar: "
+      />
+      <Statistic
+        value={dataAgreement?.expired}
+        valueStyle={{ color: '#d4380d', fontSize: "34px", fontWeight: 'bold' }}
+        prefix="No vigentes: "
+      />
     </Card>
     
   );

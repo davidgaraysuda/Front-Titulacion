@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, Form, Input, Modal, Select, DatePicker } from 'antd';
+import { Button, Form, Input, Modal, Select, DatePicker, message } from 'antd';
 import ForeignKeyCompany from '../../components/ForeingKeyCompany';
 
 interface FormValues {
@@ -12,8 +12,18 @@ interface FormValues {
 }
 
 const AgreementNew: React.FC = () => {
-  const [visible, setVisible] = useState(false);
+  const [open, setVisible] = useState(false);
   const [form] = Form.useForm();
+  const [startDate, setStartDate] = useState<Date | null>(null);
+  const [endDate, setEndDate] = useState<Date | null>(null);
+
+  const handleStartDateChange = (date: any) => {
+    setStartDate(date);
+  };
+
+  const handleEndDateChange = (date: any) => {
+    setEndDate(date);
+  };
 
   const handleOpenModal = () => {
     setVisible(true);
@@ -22,13 +32,13 @@ const AgreementNew: React.FC = () => {
   const handleCloseModal = () => {
     setVisible(false);
   };
-
+  
   const handleForeignKeyChange = (value: number) => {
-    // Aquí puedes realizar acciones con el valor seleccionado
-    console.log('Llave foránea seleccionada:', value);
+    
   };
 
   const handleFormSubmit = (values: FormValues) => {
+    if (startDate && endDate && startDate < endDate) {
     fetch('http://localhost:8081/agreement', {
       method: 'POST',
       headers: {
@@ -45,14 +55,18 @@ const AgreementNew: React.FC = () => {
       .catch(error => {
         console.error(error);
       });
-  };
+    }
+      else {
+        message.error('La fecha de inicio debe ser menor a la fecha final');
+      }
+    };
 
   return (
     <>
     <Button type="primary" onClick={handleOpenModal}>
         New
       </Button>
-      <Modal visible={visible} onCancel={handleCloseModal} footer={null}>
+      <Modal open={open} onCancel={handleCloseModal} footer={null}>
         <Form form={form} onFinish={handleFormSubmit}>
           <Form.Item
             name="startDate"

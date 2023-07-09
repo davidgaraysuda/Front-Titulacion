@@ -1,7 +1,5 @@
-import {Button, Modal, Table, Space, Form, Input, message, Popconfirm } from 'antd';
-import React, { useEffect, useState } from 'react';
-import type { ColumnsType } from 'antd/es/table';
-import axios from 'axios';
+import {Button, Modal, Table, Space, message, Popconfirm } from 'antd';
+import { useEffect, useState } from 'react';
 import TeacherNew from './TeacherNew';
 
 interface Item {
@@ -31,7 +29,7 @@ const TeacherPage = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const [visible, setVisible] = useState(false);
+  const [open, setVisible] = useState(false);
 
   const handleOpenModal = () => {
     setVisible(true);

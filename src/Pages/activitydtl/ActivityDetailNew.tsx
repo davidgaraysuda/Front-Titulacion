@@ -8,7 +8,7 @@ interface FormValues {
 }
 
 const ActivityDetailNew: React.FC = () => {
-  const [visible, setVisible] = useState(false);
+  const [open, setVisible] = useState(false);
   const [form] = Form.useForm();
 
   const handleOpenModal = () => {
@@ -43,7 +43,7 @@ const ActivityDetailNew: React.FC = () => {
     <Button type="primary" onClick={handleOpenModal}>
         New
       </Button>
-      <Modal visible={visible} onCancel={handleCloseModal} footer={null}>
+      <Modal open={open} onCancel={handleCloseModal} footer={null}>
         <Form form={form} onFinish={handleFormSubmit}>
         <Form.Item
             name="activitiesId"

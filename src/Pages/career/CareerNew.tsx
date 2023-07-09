@@ -43,7 +43,7 @@ const CareerNew: React.FC = () => {
     <Button type="primary" onClick={handleOpenModal}>
         New
       </Button>
-      <Modal visible={open} onCancel={handleCloseModal} footer={null}>
+      <Modal open={open} onCancel={handleCloseModal} footer={null}>
         <Form form={form} onFinish={handleFormSubmit}>
           <Form.Item
             name="name"

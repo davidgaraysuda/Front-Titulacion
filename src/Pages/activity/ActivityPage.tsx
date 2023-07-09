@@ -31,7 +31,7 @@ const ActivityPage = () => {
     return () => clearInterval(interval);
   }, []);
 
-  const [visible, setVisible] = useState(false);
+  const [open, setVisible] = useState(false);
 
   const handleOpenModal = () => {
     setVisible(true);

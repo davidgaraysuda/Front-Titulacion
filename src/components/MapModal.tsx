@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { Modal, Input, Button } from 'antd';
 
 interface MapModalProps {
-  visible: boolean;
+  open: boolean;
   onCancel: () => void;
   onSave: (address: string) => void;
 }
 
-const MapModal: React.FC<MapModalProps> = ({ visible, onCancel, onSave }) => {
+const MapModal: React.FC<MapModalProps> = ({ open, onCancel, onSave }) => {
   const [address, setAddress] = useState('');
 
   const handleSave = () => {
@@ -18,7 +18,7 @@ const MapModal: React.FC<MapModalProps> = ({ visible, onCancel, onSave }) => {
 
   return (
     <Modal
-      visible={visible}
+      open={open}
       title="Select Address from Google Maps"
       onCancel={onCancel}
       footer={[

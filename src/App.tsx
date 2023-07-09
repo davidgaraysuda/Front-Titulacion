@@ -15,45 +15,14 @@ import TutorPage from './Pages/tutor/TutorPage';
 import TeacherPage from './Pages/teacher/TeacherPage';
 import Contact from './Pages/Contact';
 import './index.css';
-
-const routes = [
-  { path: '/', label: 'Inicio', element: <Home />} ,
-  { path: '/agreement', label: 'Convenio', element: <AgreementPage /> },
-  { path: '/specific', label: 'Convenios Especificos', element: <SAgreementPage />},
-  { path: '/career', label: 'Carreras', element: <CareerPage />},
-  { path: '/company', label: 'Empresas', element: <CompanyPage />},
-  { path: '/activity', label: 'Actividades', element: <ActivityPage />},
-  { path: '/activitydtl', label: 'Detalle de Actividades', element: <ActivityDetailPage />},
-  { path: '/practice', label: 'Practicas', element:<PracticePage />},
-  { path: '/practicedtl', label: 'Detalle de Practicas', element:<PracticedtlPage />},
-  { path: '/student', label: 'Estudiantes', element: <StudentPage />},
-  { path: '/teacher', label: 'Tutor Academico', element: <TeacherPage />},
-  { path: '/tutor', label: 'Tutor Empresarial', element:<TutorPage />},
-];
+import SAgreementFilterCareer from './Pages/specific/filter/SAgreementFilterCareer';
 
 
 function App() {
   return (
     <BrowserRouter>
       <Layout>
-        <SiderMenu menuItems={routes} />
-        <Layout.Content>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="/agreement" element={<AgreementPage />} />
-            <Route path="/specific" element={<SAgreementPage />} />
-            <Route path="/activity" element={<ActivityPage />} />
-            <Route path="/activitydtl" element={<ActivityDetailPage />} />
-            <Route path="/practice" element={<PracticePage />} />
-            <Route path="/practicedtl" element={<PracticedtlPage />} />
-            <Route path="/career" element={<CareerPage />} />
-            <Route path="/company" element={<CompanyPage />} />
-            <Route path="/student" element={<StudentPage />} />
-            <Route path="/teacher" element={<TeacherPage />} />
-            <Route path="/tutor" element={<TutorPage />} />
-            <Route path="/contact" element={<Contact />} />
-          </Routes>
-        </Layout.Content>
+        <SiderMenu />
       </Layout>
     </BrowserRouter>
   );

@@ -1,13 +1,12 @@
-import {Button, Modal, Table, Space, Form, Input, message, Popconfirm } from 'antd';
+import {Button, Modal, Table} from 'antd';
 import React, { useEffect, useState } from 'react';
-import SAgreementNew from './SAgreementNew';
 
 interface Item {
   id:number, 
   linkSdoc: string, 
 }
 
-const SAgreementPage = () => {
+const SAgreementFilterExpired = () => {
   const [data, setData] = useState<Item[]>([]);
   const [open, setOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
@@ -15,7 +14,7 @@ const SAgreementPage = () => {
 
   const fetchItems = async () => {
     try {
-      const response = await fetch('http://localhost:8081/specifics/list');
+      const response = await fetch('http://localhost:8081/specifics/expired');
       const data = await response.json();
       setData(data);
     } catch (error) {
@@ -55,32 +54,6 @@ const SAgreementPage = () => {
     handleCloseModal();
   };
 
-  const handleDeleteData = async (sAgreementId: number) => {
-    try {
-      await fetch(`http://localhost:8081/specifics/delete/${sAgreementId}`, {
-        method: 'DELETE',
-      });
-      setData(prevData => prevData.filter(data => data.id !== sAgreementId));
-      message.success('Item deleted successfully');
-    } catch (error) {
-      console.error(error);
-      message.error('Failed to delete item');
-    }
-  };
-
-  const handleUpdateData = async (sAgreementId: number) => {
-    try {
-      await fetch(`http://localhost:8081/specifics/`, {
-        method: 'PUT',
-      });
-      setData(prevData => prevData.filter(data => data.id !== sAgreementId));
-      message.success('Item update successfully');
-    } catch (error) {
-      console.error(error);
-      message.error('Failed to update item');
-    }
-  };
-
   const handleCancel = () => {
     setOpen(false);
   };
@@ -117,9 +90,6 @@ const SAgreementPage = () => {
 
   
   return( <>
-  <Space style={{ marginBottom: '16px' }}>
-    <div style={{paddingLeft:'15px', paddingTop:'10px'}}><SAgreementNew></SAgreementNew></div>
-  </Space>
   <Table dataSource={data} columns={columns} bordered />
   <Modal
         title="Document Viewer"
@@ -137,4 +107,4 @@ const SAgreementPage = () => {
   );
 };
 
-export default SAgreementPage;
+export default SAgreementFilterExpired;

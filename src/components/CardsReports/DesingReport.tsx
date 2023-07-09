@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Spin } from 'antd';
+import { Card, Spin, Statistic } from 'antd';
 import axios from 'axios';
 
 interface Data {
@@ -32,10 +32,11 @@ const DesingReport: React.FC = () => {
       {loading ? (
         <Spin />
       ) : (
-        <>
-          <p>Vigentes: {dataDesing?.specificCurrentDesing}</p>
-          {/* Mostrar más propiedades del JSON según sea necesario */}
-        </>
+        <Statistic
+        value={dataDesing?.specificCurrentDesing}
+        valueStyle={{ color: '#91caff', fontSize: "34px", fontWeight: 'bold' }}
+        prefix="Vigentes: "
+      />
       )}
     </Card>
     
