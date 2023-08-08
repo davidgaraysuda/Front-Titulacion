@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Select } from 'antd';
+import { Modal, Button, Radio, Input } from 'antd';
 import axios from 'axios';
 
-const { Option } = Select;
+const { Button: RadioButton } = Radio;
+const { Search } = Input;
 
 interface ForeignKeyOption {
   id: number;
@@ -11,18 +12,27 @@ interface ForeignKeyOption {
 
 interface ForeignKeySelectProps {
   onChange: (value: number) => void;
+  formValue?: number;
 }
 
-const ForeignKeyAgreement: React.FC<ForeignKeySelectProps> = ({ onChange }) => {
+const ForeignKeyAgreement: React.FC<ForeignKeySelectProps> = ({ onChange, formValue }) => {
   const [options, setOptions] = useState<ForeignKeyOption[]>([]);
+  const [filteredOptions, setFilteredOptions] = useState<ForeignKeyOption[]>([]);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [selectedOption, setSelectedOption] = useState<number | null>(formValue || null);
+  const [searchValue, setSearchValue] = useState('');
 
   useEffect(() => {
     fetchForeignKeyData();
   }, []);
 
+  useEffect(() => {
+    filterOptions();
+  }, [searchValue]);
+
   const fetchForeignKeyData = async () => {
     try {
-      const response = await axios.get('http://localhost:8081/agreement/full'); // Reemplaza '/api/foreign-keys' con la ruta real a tu endpoint del backend
+      const response = await axios.get('http://localhost:8081/agreement/full');
       const data: ForeignKeyOption[] = response.data;
 
       setOptions(data);
@@ -31,18 +41,55 @@ const ForeignKeyAgreement: React.FC<ForeignKeySelectProps> = ({ onChange }) => {
     }
   };
 
+  const filterOptions = () => {
+    const filtered = options.filter((option) =>
+      option.company.toLowerCase().includes(searchValue.toLowerCase())
+    );
+    setFilteredOptions(filtered);
+  };
+
   const handleSelectChange = (value: number) => {
-    onChange(value);
+    setSelectedOption(value);
+  };
+
+  const handleOpenModal = () => {
+    setModalVisible(true);
+  };
+
+  const handleCloseModal = () => {
+    setModalVisible(false);
+  };
+
+  const handleConfirm = () => {
+    if (selectedOption !== null) {
+      onChange(selectedOption);
+    }
+    setModalVisible(false);
+  };
+
+  const handleSearch = (value: string) => {
+    setSearchValue(value);
   };
 
   return (
-    <Select onChange={handleSelectChange}>
-      {options.map((option) => (
-        <Option key={option.id} value={option.id}>
-          {option.company}
-        </Option>
-      ))}
-    </Select>
+    <>
+      <Button onClick={handleOpenModal}>Open Modal</Button>
+      <Modal open={modalVisible} onCancel={handleCloseModal} onOk={handleConfirm}>
+        <Search placeholder="Search by company" onChange={(e) => handleSearch(e.target.value)} />
+        <Radio.Group onChange={(e) => handleSelectChange(e.target.value)} value={selectedOption}>
+          <ul>
+            {filteredOptions.map((option) => (
+              <li key={option.id} style={{paddingTop:'10px'}}>
+                <RadioButton value={option.id}>{option.company}</RadioButton>
+              </li>
+            ))}
+          </ul>
+        </Radio.Group>
+      </Modal>
+      {selectedOption !== null && (
+        <div>Selected Foreign Key: {options.find((option) => option.id === selectedOption)?.company}</div>
+      )}
+    </>
   );
 };
 

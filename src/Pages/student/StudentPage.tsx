@@ -1,12 +1,12 @@
-import {Button, Modal, Table, Space, Form, Input, message, Popconfirm } from 'antd';
+import { Button, Modal, Table, Space, Form, Input, message, Popconfirm } from 'antd';
 import React, { useEffect, useState } from 'react';
 import type { ColumnsType } from 'antd/es/table';
 import axios from 'axios';
 import StudentNew from './StudentNew';
 
 interface Item {
-  studentId:number, 
-
+  studentId: number;
+  // Add other properties here if needed
 }
 
 const StudentPage = () => {
@@ -14,8 +14,8 @@ const StudentPage = () => {
 
   const fetchItems = async () => {
     try {
-      const response = await fetch('http://localhost:8081/students');
-      const data = await response.json();
+      const response = await axios.get('https://its.academicok.com/api?a=datospracticasmatriculados&key=458466658');
+      const data = response.data;
       setData(data);
     } catch (error) {
       console.error(error);
@@ -24,11 +24,6 @@ const StudentPage = () => {
 
   useEffect(() => {
     fetchItems();
-    const interval = setInterval(() => {
-      fetchItems();
-    }, 1000);
-
-    return () => clearInterval(interval);
   }, []);
 
   const [open, setVisible] = useState(false);
@@ -48,9 +43,7 @@ const StudentPage = () => {
 
   const handleDeleteData = async (id: number) => {
     try {
-      await fetch(`http://localhost:8081/students/delete/${id}`, {
-        method: 'DELETE',
-      });
+      await axios.delete(`http://localhost:8081/students/delete/${id}`);
       setData(prevData => prevData.filter(data => data.studentId !== id));
       message.success('Item deleted successfully');
     } catch (error) {
@@ -61,9 +54,7 @@ const StudentPage = () => {
 
   const handleUpdateData = async (id: number) => {
     try {
-      await fetch(`http://localhost:8081/students/`, {
-        method: 'PUT',
-      });
+      await axios.put(`http://localhost:8081/students/`);
       setData(prevData => prevData.filter(data => data.studentId !== id));
       message.success('Item update successfully');
     } catch (error) {
@@ -78,75 +69,41 @@ const StudentPage = () => {
 
   const columns = [
     {
-      title: 'Cedula',
-      dataIndex: 'nui',
-      key: 'nui',
+      title: 'Identificación',
+      dataIndex: 'identifiacion',
+      key: 'identifiacion',
     },
     {
-      title: 'Nombre',
-      dataIndex: 'name',
-      key: 'name',
+      title: 'Nombres',
+      dataIndex: 'nombres',
+      key: 'nombres',
     },
     {
-      title: 'Apellido',
-      dataIndex: 'lastname',
-      key: 'lastname',
+      title: 'Apellidos',
+      dataIndex: 'apellido1',
+      key: 'apellido1',
     },
-    {
-      title: 'E-mail',
-      dataIndex: 'email',
-      key: 'email',
-    },
-    {
-      title: 'Telefono',
-      dataIndex: 'phone',
-      key: 'phone',
-    },
+
     {
       title: 'Carrera',
-      dataIndex: 'careerId',
-      key: 'career_id',
+      dataIndex: 'carrera',
+      key: 'carrera',
     },
-    {
-      title: 'Estado',
-      dataIndex: 'sState',
-      key: 's_state',
-    },
-    
-    {
-      title: 'Action',
-      key: 'action',
-      render: (text: string, record: Item) => (
-        <Popconfirm
-          title="Are you sure you want to delete this item?"
-          onConfirm={() => handleDeleteData(record.studentId)}
-        >
-          <Button type="link" danger>
-            Delete
-          </Button>
-        </Popconfirm>
-      ),},
-      {
-        title: 'Action',
-        key: 'action',
-        render: (text: string, record: Item) => (
-          <Popconfirm
-            title="Are you sure you want to update this item?"
-            onConfirm={() => handleUpdateData(record.studentId)}
-          >
-            <Button type="link" danger>
-              Update
-            </Button>
-          </Popconfirm>
-        ),},]
 
-  
-  return( <>
-  <Space style={{ marginBottom: 16 }}>
-    <StudentNew></StudentNew>
-  </Space>
-  <Table dataSource={data} columns={columns} bordered />
-  </>
+    {
+      title: 'Data',
+      dataIndex: 'data',
+      key: 'data',
+    },
+  ];
+
+  return (
+    <>
+      <Space style={{ marginBottom: 16 }}>
+        <StudentNew></StudentNew>
+      </Space>
+      <Table dataSource={data} columns={columns} bordered />
+    </>
   );
 };
 

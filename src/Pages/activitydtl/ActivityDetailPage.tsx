@@ -78,6 +78,11 @@ const ActivityDetailPage = () => {
 
   const columns = [
     {
+      title: 'Descripcion',
+      dataIndex: 'description',
+      key: 'description',
+    },
+    {
       title: 'Actividades',
       dataIndex: 'activityId',
       key: 'activity_id',

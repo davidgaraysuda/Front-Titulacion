@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import { Button, Form, Input, Modal, Select } from 'antd';
 import ForeignKeyAgreement from '../../components/ForeingKeyAgreement';
-import ForeignKeyCareer from '../../components/ForeingKeyCareer';
-import ForeignKeyTetutor from '../../components/ForeingKeyTetutor';
+import ForeignKeySelect from '../../components/ForeingKeySelect';
+
 
 interface FormValues {
   name: string;
@@ -53,7 +53,7 @@ const SAgreementNew: React.FC = () => {
         New
       </Button>
       <Modal open={open} onCancel={handleCloseModal} footer={null}>
-        <Form form={form} onFinish={handleFormSubmit}>
+        <Form form={form} onFinish={handleFormSubmit} style={{paddingTop:'30px'}}>
           <Form.Item
             name="agreementId"
             label="Convenio"
@@ -71,21 +71,14 @@ const SAgreementNew: React.FC = () => {
             name="careerId"
             label="Carrera"
           >
-            <ForeignKeyCareer onChange={handleForeignKeyChange}/>
+            <ForeignKeySelect onChange={handleForeignKeyChange} section={'carreras'}/>
           </Form.Item>
 
           <Form.Item
             name="teacherId"
             label="Tutor Academico"
           >
-            <ForeignKeyTetutor onChange={handleForeignKeyChange}/>
-          </Form.Item>
-
-          <Form.Item name="sagStatus" label="Estado">
-            <Select>
-              <Select.Option value={true}>Activo</Select.Option>
-              <Select.Option value={false}>Inactivo</Select.Option>
-            </Select>
+            <ForeignKeySelect onChange={handleForeignKeyChange} section={'teachers'}/>
           </Form.Item>
           
           <Form.Item>

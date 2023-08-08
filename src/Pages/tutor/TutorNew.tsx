@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Form, Input, Modal, Select } from 'antd';
+import ForeignKeySelect from '../../components/ForeingKeySelect';
 import ForeignKeyCompany from '../../components/ForeingKeyCompany';
 
 interface FormValues {
@@ -53,7 +54,7 @@ const TutorNew: React.FC = () => {
         New
       </Button>
       <Modal open={open} onCancel={handleCloseModal} footer={null} >
-        <Form form={form} onFinish={handleFormSubmit}>
+        <Form form={form} onFinish={handleFormSubmit} style={{paddingTop:'30px'}}>
         <Form.Item
             name="name"
             label="Nombre del tutor"
@@ -88,13 +89,6 @@ const TutorNew: React.FC = () => {
           >
             <ForeignKeyCompany onChange={handleForeignKeyChange}/>
           </Form.Item>
-        
-      <Form.Item name="tuStatus" label="Estado">
-        <Select>
-          <Select.Option value={true}>Activo</Select.Option>
-          <Select.Option value={false}>Inactivo</Select.Option>
-        </Select>
-      </Form.Item>
 
           <Form.Item>
             <Button type="primary" htmlType="submit">

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Layout, Menu } from 'antd';
-import { Link, useLocation, Routes, Route  } from 'react-router-dom';
+import { Link, useLocation, Routes, Route } from 'react-router-dom';
 import {
   CopyOutlined,
   TeamOutlined,
@@ -8,12 +8,12 @@ import {
   SnippetsOutlined,
   TrophyOutlined,
   ShopOutlined,
-  CoffeeOutlined, 
-  ContainerOutlined, 
-  SmileOutlined, 
-  SolutionOutlined, 
-  AuditOutlined, 
-  SoundOutlined, 
+  CoffeeOutlined,
+  ContainerOutlined,
+  SmileOutlined,
+  SolutionOutlined,
+  AuditOutlined,
+  SoundOutlined,
 } from '@ant-design/icons';
 import Home from '../Pages/Home';
 import AgreementPage from '../Pages/agreement/AgreementPage';
@@ -38,22 +38,34 @@ const { Sider, Content } = Layout;
 const { SubMenu } = Menu;
 
 const menuItems = [
-  { path: '/', label: 'Inicio', icon:<HomeOutlined />} ,
-  { path: '/agreement', label: 'Convenios', icon:<CopyOutlined/>, subMenuItems: [
-    {label: 'Vigentes', path: '/agreement/current', icon: <SnippetsOutlined />, },
-    {label: 'Caducados', path: '/agreement/expired', icon: <SnippetsOutlined />, },],},
-  { path: '/specific', label: 'C. Especificos', icon:<SnippetsOutlined />, subMenuItems: [
-    {label: 'Vigentes', path: '/specific/current', icon: <SnippetsOutlined />, },
-    {label: 'Caducados', path: '/specific/expired', icon: <SnippetsOutlined />, },],},
-  { path: '/career', label: 'Carreras', icon:<TrophyOutlined />},
-  { path: '/company', label: 'Empresas', icon:<ShopOutlined />},
-  { path: '/activity', label: 'Actividades', icon:<CoffeeOutlined />},
-  { path: '/activitydtl', label: 'Detalle de Actividades', icon:<ContainerOutlined />},
-  { path: '/practice', label: 'Practicas', icon:<SmileOutlined />},
-  { path: '/practicedtl', label: 'Detalle de Practicas', icon:<AuditOutlined />},
-  { path: '/student', label: 'Estudiantes', icon:<SolutionOutlined />},
-  { path: '/teacher', label: 'Tutor Academico', icon:<SoundOutlined />},
-  { path: '/tutor', label: 'Tutor Empresarial', icon:<TeamOutlined />},
+  { path: '/', label: 'Inicio', icon: <HomeOutlined /> },
+  {
+    path: '/agreement',
+    label: 'Convenios',
+    icon: <CopyOutlined />,
+    subMenuItems: [
+      { label: 'Vigentes', path: '/agreement/current', icon: <SnippetsOutlined /> },
+      { label: 'Caducados', path: '/agreement/expired', icon: <SnippetsOutlined /> },
+    ],
+  },
+  {
+    path: '/specific',
+    label: 'C. Especificos',
+    icon: <SnippetsOutlined />,
+    subMenuItems: [
+      { label: 'Vigentes', path: '/specific/current', icon: <SnippetsOutlined /> },
+      { label: 'Caducados', path: '/specific/expired', icon: <SnippetsOutlined /> },
+    ],
+  },
+  { path: '/career', label: 'Carreras', icon: <TrophyOutlined /> },
+  { path: '/company', label: 'Empresas', icon: <ShopOutlined /> },
+  { path: '/activity', label: 'Actividades', icon: <CoffeeOutlined /> },
+  { path: '/activitydtl', label: 'Detalle de Actividades', icon: <ContainerOutlined /> },
+  { path: '/practice', label: 'Asignacion de estudiantes', icon: <SmileOutlined /> },
+  { path: '/practicedtl', label: 'Detalle de Practicas', icon: <AuditOutlined /> },
+  { path: '/student', label: 'Estudiantes', icon: <SolutionOutlined /> },
+  { path: '/teacher', label: 'Tutor Academico', icon: <SoundOutlined /> },
+  { path: '/tutor', label: 'Tutor Empresarial', icon: <TeamOutlined /> },
   // Agrega más elementos de menú aquí
 ];
 
@@ -89,7 +101,7 @@ const SliderMenu = () => {
       <Layout>
         <Content style={{ padding: '20px' }}>
           <Routes>
-          <Route path="/" element={<Home />} />
+            <Route path="/" element={<Home />} />
             <Route path="/agreement" element={<AgreementPage />} />
             <Route path="/agreement/current" element={<AgreementFilterCurrent />} />
             <Route path="/agreement/expired" element={<AgreementFilterExpired />} />

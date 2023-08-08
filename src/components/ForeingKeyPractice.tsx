@@ -7,8 +7,8 @@ const { Search } = Input;
 
 interface ForeignKeyOption {
   id: number;
-  name: string;
-  company:string;
+  apellido: string;
+  estudiante:string;
 }
 
 interface ForeignKeySelectProps {
@@ -16,7 +16,7 @@ interface ForeignKeySelectProps {
   formValue?: number;
 }
 
-const ForeignKeyTutor: React.FC<ForeignKeySelectProps> = ({ onChange, formValue }) => {
+const ForeignKeyPractice: React.FC<ForeignKeySelectProps> = ({ onChange, formValue }) => {
   const [options, setOptions] = useState<ForeignKeyOption[]>([]);
   const [filteredOptions, setFilteredOptions] = useState<ForeignKeyOption[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
@@ -33,7 +33,7 @@ const ForeignKeyTutor: React.FC<ForeignKeySelectProps> = ({ onChange, formValue 
 
   const fetchForeignKeyData = async () => {
     try {
-      const response = await axios.get('http://localhost:8081/tutors/with/company');
+      const response = await axios.get('http://localhost:8081/practices/with/estudiante');
       const data: ForeignKeyOption[] = response.data;
 
       setOptions(data);
@@ -44,7 +44,7 @@ const ForeignKeyTutor: React.FC<ForeignKeySelectProps> = ({ onChange, formValue 
 
   const filterOptions = () => {
     const filtered = options.filter((option) =>
-      option.name.toLowerCase().includes(searchValue.toLowerCase())
+      option.apellido.toLowerCase().includes(searchValue.toLowerCase())
     );
     setFilteredOptions(filtered);
   };
@@ -76,22 +76,22 @@ const ForeignKeyTutor: React.FC<ForeignKeySelectProps> = ({ onChange, formValue 
     <>
       <Button onClick={handleOpenModal}>Open Modal</Button>
       <Modal open={modalVisible} onCancel={handleCloseModal} onOk={handleConfirm}>
-        <Search placeholder="Search by name" onChange={(e) => handleSearch(e.target.value)} />
+        <Search placeholder="Search by apellido" onChange={(e) => handleSearch(e.target.value)} />
         <Radio.Group onChange={(e) => handleSelectChange(e.target.value)} value={selectedOption}>
           <ul>
             {filteredOptions.map((option) => (
               <li key={option.id} style={{paddingTop:'10px'}}>
-                <RadioButton value={option.id}>{`${option.name} ${option.company}`}</RadioButton>
+                <RadioButton value={option.id}>{`${option.estudiante} ${option.apellido}`}</RadioButton>
               </li>
             ))}
           </ul>
         </Radio.Group>
       </Modal>
       {selectedOption !== null && (
-        <div>Selected Foreign Key: {options.find((option) => option.id === selectedOption)?.name}</div>
+        <div>Selected Foreign Key: {options.find((option) => option.id === selectedOption)?.apellido}</div>
       )}
     </>
   );
 };
 
-export default ForeignKeyTutor;
+export default ForeignKeyPractice;

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Form, Input, Modal, Select } from 'antd';
-import ForeignKeyCareer from '../../components/ForeingKeyCareer';
+import ForeignKeyCareer from '../../components/ForeingKeySelect';
 
 interface FormValues {
   name: string;
@@ -50,7 +50,7 @@ const TeacherNew: React.FC = () => {
         New
       </Button>
       <Modal open={open} onCancel={handleCloseModal} footer={null}>
-        <Form form={form} onFinish={handleFormSubmit}>
+        <Form form={form} onFinish={handleFormSubmit} style={{paddingTop:'30px'}}>
         <Form.Item
             name="name"
             label="Nombre del tutor"
@@ -70,14 +70,7 @@ const TeacherNew: React.FC = () => {
             name="careerId"
             label="Carrera"
           >
-            <ForeignKeyCareer onChange={handleForeignKeyChange}/>
-          </Form.Item>
-
-          <Form.Item name="teStatus" label="Estado">
-            <Select>
-              <Select.Option value={true}>Activo</Select.Option>
-              <Select.Option value={false}>Inactivo</Select.Option>
-            </Select>
+            <ForeignKeyCareer onChange={handleForeignKeyChange} section={'carreras'}/>
           </Form.Item>
           
           <Form.Item>

@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
-import { Button, Form, Input, Modal } from 'antd';
+import { Button, Form, Input, Modal, Select } from 'antd';
+import ForeignKeySelect from '../../components/ForeingKeySelect'
 
 interface FormValues {
   name: string;
   email: string;
   message: string;
 }
+
 
 const StudentNew: React.FC = () => {
   const [open, setVisible] = useState(false);
@@ -19,7 +21,12 @@ const StudentNew: React.FC = () => {
     setVisible(false);
   };
 
+  const handleForeignKeyChange = (value: number) => {
+  };
+
+
   const handleFormSubmit = (values: FormValues) => {
+
     fetch('http://localhost:8081/students', {
       method: 'POST',
       headers: {
@@ -32,7 +39,7 @@ const StudentNew: React.FC = () => {
         console.log(data);
         handleCloseModal();
         form.resetFields();
-      })
+      } )
       .catch(error => {
         console.error(error);
       });
@@ -44,7 +51,7 @@ const StudentNew: React.FC = () => {
         New
       </Button>
       <Modal open={open} onCancel={handleCloseModal} footer={null}>
-        <Form form={form} onFinish={handleFormSubmit}>
+        <Form form={form} onFinish={handleFormSubmit} style={{paddingTop:'30px'}}>
         <Form.Item
             name="nui"
             label="Cedula"
@@ -83,16 +90,8 @@ const StudentNew: React.FC = () => {
           <Form.Item
             name="careerId"
             label="Carrera"
-            rules={[{ required: true, message: 'Please enter a message' }]}
           >
-            <Input />
-          </Form.Item>
-          <Form.Item
-            name="sState"
-            label="Estado"
-            rules={[{ required: true, message: 'Please enter a message' }]}
-          >
-            <Input />
+            <ForeignKeySelect onChange={handleForeignKeyChange} section={'carreras'}/>
           </Form.Item>
 
           <Form.Item>

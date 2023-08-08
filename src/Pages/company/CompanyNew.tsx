@@ -69,7 +69,7 @@ const CompanyNew: React.FC = () => {
         New
       </Button>
       <Modal open={open} onCancel={handleCloseModal} footer={null}>
-        <Form form={form} onFinish={handleFormSubmit} >
+        <Form form={form} onFinish={handleFormSubmit} style={{paddingTop:'30px'}}>
           <Form.Item
             name="name"
             label="Nombre de la empresa"
@@ -87,7 +87,6 @@ const CompanyNew: React.FC = () => {
           <Form.Item
             name="contact"
             label="Contacto adicional"
-            rules={[{ required: true, message: 'Ingresar un Contacto adicional' }]}
           >
             <Input />
           </Form.Item>
@@ -97,13 +96,6 @@ const CompanyNew: React.FC = () => {
             rules={[{ required: true, message: 'Ingresar la direccion' }]}
           >
             <Input />
-          </Form.Item>
-          
-          <Form.Item name="coStatus" label="Estado">
-            <Select>
-              <Select.Option value={true}>Activo</Select.Option>
-              <Select.Option value={false}>Inactivo</Select.Option>
-            </Select>
           </Form.Item>
 
           <Form.Item>

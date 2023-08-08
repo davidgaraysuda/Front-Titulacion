@@ -8,7 +8,8 @@ const { Search } = Input;
 interface ForeignKeyOption {
   id: number;
   name: string;
-  company:string;
+  lastname:string;
+  career:string
 }
 
 interface ForeignKeySelectProps {
@@ -16,7 +17,7 @@ interface ForeignKeySelectProps {
   formValue?: number;
 }
 
-const ForeignKeyTutor: React.FC<ForeignKeySelectProps> = ({ onChange, formValue }) => {
+const ForeignKeyStudent: React.FC<ForeignKeySelectProps> = ({ onChange, formValue }) => {
   const [options, setOptions] = useState<ForeignKeyOption[]>([]);
   const [filteredOptions, setFilteredOptions] = useState<ForeignKeyOption[]>([]);
   const [modalVisible, setModalVisible] = useState(false);
@@ -33,7 +34,7 @@ const ForeignKeyTutor: React.FC<ForeignKeySelectProps> = ({ onChange, formValue 
 
   const fetchForeignKeyData = async () => {
     try {
-      const response = await axios.get('http://localhost:8081/tutors/with/company');
+      const response = await axios.get('http://localhost:8081/students/with/career');
       const data: ForeignKeyOption[] = response.data;
 
       setOptions(data);
@@ -81,7 +82,7 @@ const ForeignKeyTutor: React.FC<ForeignKeySelectProps> = ({ onChange, formValue 
           <ul>
             {filteredOptions.map((option) => (
               <li key={option.id} style={{paddingTop:'10px'}}>
-                <RadioButton value={option.id}>{`${option.name} ${option.company}`}</RadioButton>
+                <RadioButton value={option.id}>{`${option.name} ${option.lastname} ${option.career}`}</RadioButton>
               </li>
             ))}
           </ul>
@@ -94,4 +95,4 @@ const ForeignKeyTutor: React.FC<ForeignKeySelectProps> = ({ onChange, formValue 
   );
 };
 
-export default ForeignKeyTutor;
+export default ForeignKeyStudent;

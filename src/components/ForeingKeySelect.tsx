@@ -11,9 +11,10 @@ interface ForeignKeyOption {
 
 interface ForeignKeySelectProps {
   onChange: (value: number) => void;
+  section: string;
 }
 
-const ForeignKeyTetutor: React.FC<ForeignKeySelectProps> = ({ onChange }) => {
+const ForeignKeyCareer: React.FC<ForeignKeySelectProps> = ({ onChange, section}) => {
   const [options, setOptions] = useState<ForeignKeyOption[]>([]);
 
   useEffect(() => {
@@ -22,7 +23,7 @@ const ForeignKeyTetutor: React.FC<ForeignKeySelectProps> = ({ onChange }) => {
 
   const fetchForeignKeyData = async () => {
     try {
-      const response = await axios.get('http://localhost:8081/teachers'); // Reemplaza '/api/foreign-keys' con la ruta real a tu endpoint del backend
+      const response = await axios.get('http://localhost:8081/'+ section); // Reemplaza '/api/foreign-keys' con la ruta real a tu endpoint del backend
       const data: ForeignKeyOption[] = response.data;
 
       setOptions(data);
@@ -46,4 +47,4 @@ const ForeignKeyTetutor: React.FC<ForeignKeySelectProps> = ({ onChange }) => {
   );
 };
 
-export default ForeignKeyTetutor;
+export default ForeignKeyCareer;

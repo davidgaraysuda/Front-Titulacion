@@ -1,20 +1,37 @@
 import {Button, Modal, Table, Space, Form, Input, message, Popconfirm } from 'antd';
 import React, { useEffect, useState } from 'react';
 import type { ColumnsType } from 'antd/es/table';
-import axios from 'axios';
+import moment from 'moment';
 import PracticeNew from './PracticeNew';
 
 interface Item {
   practiceId:number, 
+  hours?:number;
+}
+
+interface ItemDtl {
+  totalHours:number, 
 
 }
 
 const PracticePage = () => {
   const [data, setData] = useState<Item[]>([]);
+  const [practicedata, setPracticeData] = useState<Item[]>([]);
+  const [practicedtldata, setPracticeDtlData] = useState<ItemDtl[]>([]);
 
   const fetchItems = async () => {
     try {
-      const response = await fetch('http://localhost:8081/practices/with/empresa');
+      const response = await fetch('http://localhost:8081/practices/with/estudiante');
+      const data = await response.json();
+      setData(data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const fetchItems2 = async () => {
+    try {
+      const response = await fetch('http://localhost:8081/practicedtl');
       const data = await response.json();
       setData(data);
     } catch (error) {
@@ -23,6 +40,7 @@ const PracticePage = () => {
   };
 
   useEffect(() => {
+    fetchItems2();
     fetchItems();
     const interval = setInterval(() => {
       fetchItems();
@@ -30,6 +48,15 @@ const PracticePage = () => {
 
     return () => clearInterval(interval);
   }, []);
+
+  useEffect(() => {
+    // Realiza la suma y actualiza la columna sumaTabla2 en la tabla1
+    const updatedHoursData = practicedata.map((item) => {
+      const suma = practicedtldata.reduce((acc, curr) => acc + curr.totalHours, 0);
+      return { ...item, sumaTabla2: suma };
+    });
+    setPracticeData(updatedHoursData);
+  }, [practicedtldata]);
 
   const [open, setVisible] = useState(false);
 
@@ -81,21 +108,23 @@ const PracticePage = () => {
       title: 'Fecha de Inicio',
       dataIndex: 'startDate',
       key: 'start_date',
+      render: (startDate: string) => moment(startDate).format('YYYY-MM-DD'),
     },
     {
       title: 'Fecha de Fin',
       dataIndex: 'endDate',
       key: 'end_date',
+      render: (endDate: string) => moment(endDate).format('YYYY-MM-DD'),
     },
+    
     {
-      title: 'Nombre Estudiante',
-      dataIndex: 'student',
+      title: 'Estudiante',
+      dataIndex: 'estudiante',
       key: 'student',
     },
     {
-      title: 'Apellido Estudiante',
-      dataIndex: 'lastname',
-      key: 'lastname',
+      dataIndex: 'apellido',
+      key: 'student',
     },
     {
       title: 'Tutor Empresarial',
@@ -104,46 +133,11 @@ const PracticePage = () => {
     },
     {
       title: 'Tutor Academico',
-      dataIndex: 'teacher',
+      dataIndex: 'profesor',
       key: 'teacher',
     },
-    {
-      title: 'Actividad',
-      dataIndex: 'description',
-      key: 'description',
-    },
-    {
-      title: 'Estado',
-      dataIndex: 'praStatus',
-      key: 'pra_status',
-    },
     
-    {
-      title: 'Action',
-      key: 'action',
-      render: (text: string, record: Item) => (
-        <Popconfirm
-          title="Are you sure you want to delete this item?"
-          onConfirm={() => handleDeleteData(record.practiceId)}
-        >
-          <Button type="link" danger>
-            Delete
-          </Button>
-        </Popconfirm>
-      ),},
-      {
-        title: 'Action',
-        key: 'action',
-        render: (text: string, record: Item) => (
-          <Popconfirm
-            title="Are you sure you want to update this item?"
-            onConfirm={() => handleUpdateData(record.practiceId)}
-          >
-            <Button type="link" danger>
-              Update
-            </Button>
-          </Popconfirm>
-        ),},]
+    ]
 
   
   return( <>

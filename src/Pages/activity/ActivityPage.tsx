@@ -84,36 +84,9 @@ const ActivityPage = () => {
     },
     {
       title: 'Carrera a la que pertenece',
-      dataIndex: 'careerId',
-      key: 'career_id',
-    },
-    
-    {
-      title: 'Action',
-      key: 'action',
-      render: (text: string, record: Item) => (
-        <Popconfirm
-          title="Are you sure you want to delete this item?"
-          onConfirm={() => handleDeleteData(record.activityId)}
-        >
-          <Button type="link" danger>
-            Delete
-          </Button>
-        </Popconfirm>
-      ),},
-      {
-        title: 'Action',
-        key: 'action',
-        render: (text: string, record: Item) => (
-          <Popconfirm
-            title="Are you sure you want to update this item?"
-            onConfirm={() => handleUpdateData(record.activityId)}
-          >
-            <Button type="link" danger>
-              Update
-            </Button>
-          </Popconfirm>
-        ),},]
+      dataIndex: 'carrera',
+      key: 'careerId',
+    },]
 
   
   return( <>

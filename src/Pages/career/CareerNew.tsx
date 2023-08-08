@@ -44,7 +44,7 @@ const CareerNew: React.FC = () => {
         New
       </Button>
       <Modal open={open} onCancel={handleCloseModal} footer={null}>
-        <Form form={form} onFinish={handleFormSubmit}>
+        <Form form={form} onFinish={handleFormSubmit} style={{paddingTop:'30px'}}>
           <Form.Item
             name="name"
             label="Nombre de la carrera"
@@ -55,7 +55,7 @@ const CareerNew: React.FC = () => {
           <Form.Item
             name="coordinator"
             label="Nombre del coordinador de carrera"
-            rules={[{ required: true, message: 'Ingresar el nombre completo del coordinador' }]}
+            
           >
             <Input/>
           </Form.Item>

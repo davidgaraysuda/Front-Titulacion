@@ -2,6 +2,7 @@ import {Button, Modal, Table, Space, Form, Input, message, Popconfirm } from 'an
 import React, { useEffect, useState } from 'react';
 import type { ColumnsType } from 'antd/es/table';
 import axios from 'axios';
+import moment from 'moment';
 import PracticedtlNew from './PracticedtlNew';
 
 interface Item {
@@ -14,13 +15,14 @@ const PracticedtlPage = () => {
 
   const fetchItems = async () => {
     try {
-      const response = await fetch('http://localhost:8081/practicedtl');
+      const response = await fetch('http://localhost:8081/practicedtl/full');
       const data = await response.json();
       setData(data);
     } catch (error) {
       console.error(error);
     }
   };
+  
   useEffect(() => {
     fetchItems();
     const interval = setInterval(() => {
@@ -80,6 +82,7 @@ const PracticedtlPage = () => {
       title: 'Fecha de la Practica',
       dataIndex: 'actualDate',
       key: 'actual_date',
+      render: (startDate: string) => moment(startDate).format('YYYY-MM-DD'),
     },
     {
       title: 'Hora de Entrada',
@@ -96,44 +99,20 @@ const PracticedtlPage = () => {
       dataIndex: 'totalHours',
       key: 'total_hours',
     },
-
     {
-      title: 'Practicas',
-      dataIndex: 'practiceId',
-      key: 'practice_id',
-    },
-
-    {
-      title: 'Tutor Empresarial',
-      dataIndex: 'tutorId',
-      key: 'tutor_id',
+      title: 'Estudiante',
+      dataIndex: 'estudiante',
+      key: 'estudiante',
     },
     {
-      title: 'Action',
-      key: 'action',
-      render: (text: string, record: Item) => (
-        <Popconfirm
-          title="Are you sure you want to delete this item?"
-          onConfirm={() => handleDeleteData(record.id)}
-        >
-          <Button type="link" danger>
-            Delete
-          </Button>
-        </Popconfirm>
-      ),},
-      {
-        title: 'Action',
-        key: 'action',
-        render: (text: string, record: Item) => (
-          <Popconfirm
-            title="Are you sure you want to update this item?"
-            onConfirm={() => handleUpdateData(record.id)}
-          >
-            <Button type="link" danger>
-              Update
-            </Button>
-          </Popconfirm>
-        ),},]
+      title: 'Empresa',
+      dataIndex: 'company',
+      key: 'company',
+    },
+
+
+
+    ]
 
   
   return( <>

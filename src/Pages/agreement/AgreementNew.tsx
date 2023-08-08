@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Form, Input, Modal, Select, DatePicker, message } from 'antd';
 import ForeignKeyCompany from '../../components/ForeingKeyCompany';
+import CompanyNew from '../company/CompanyNew';
 
 interface FormValues {
   name: string;
@@ -38,7 +39,6 @@ const AgreementNew: React.FC = () => {
   };
 
   const handleFormSubmit = (values: FormValues) => {
-    if (startDate && endDate && startDate < endDate) {
     fetch('http://localhost:8081/agreement', {
       method: 'POST',
       headers: {
@@ -55,10 +55,6 @@ const AgreementNew: React.FC = () => {
       .catch(error => {
         console.error(error);
       });
-    }
-      else {
-        message.error('La fecha de inicio debe ser menor a la fecha final');
-      }
     };
 
   return (
@@ -67,20 +63,29 @@ const AgreementNew: React.FC = () => {
         New
       </Button>
       <Modal open={open} onCancel={handleCloseModal} footer={null}>
-        <Form form={form} onFinish={handleFormSubmit}>
+        <Form form={form} onFinish={handleFormSubmit} style={{paddingTop:'30px'}}>
           <Form.Item
             name="startDate"
             label="Fecha de Inicio"
             rules={[{ required: true, message: 'Ingresar la fecha de inicio del Convenio' }]}
           >
-            <DatePicker format="YYYY-MM-DD" />
+            <DatePicker format="YYYY-MM-DD" onChange={handleStartDateChange}/>
           </Form.Item>
           <Form.Item
             name="endDate"
             label="Fecha de Fin"
-            rules={[{ required: true, message: 'Ingresar la fecha de fin del Convenio' }]}
+            rules={[{ required: true, message: 'Ingresar la fecha de fin del Convenio' }, 
+            () => ({
+              validator(_, value) {
+                if (!value || (startDate && value.isAfter(startDate))) {
+                  return Promise.resolve();
+                }
+                return Promise.reject(new Error('La fecha de fin debe ser posterior a la fecha de inicio'));
+              },
+            }),
+          ]}
           >
-            <DatePicker format="YYYY-MM-DD" />
+            <DatePicker format="YYYY-MM-DD" onChange={handleEndDateChange}/>
           </Form.Item>
           <Form.Item
             name="linkDoc"
@@ -96,12 +101,6 @@ const AgreementNew: React.FC = () => {
             <ForeignKeyCompany onChange={handleForeignKeyChange} />
           </Form.Item>
           
-          <Form.Item name="agStatus" label="Estado">
-            <Select>
-              <Select.Option value={true}>Activo</Select.Option>
-              <Select.Option value={false}>Inactivo</Select.Option>
-            </Select>
-          </Form.Item>
           <Form.Item>
             <Button type="primary" htmlType="submit">
               Submit

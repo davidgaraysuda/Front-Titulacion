@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Form, Input, Modal } from 'antd';
+import ForeignKeySelect from '../../components/ForeingKeySelect';
 
 interface FormValues {
   name: string;
@@ -10,6 +11,9 @@ interface FormValues {
 const ActivityNew: React.FC = () => {
   const [open, setVisible] = useState(false);
   const [form] = Form.useForm();
+
+  const handleForeignKeyChange = (value: number) => {
+  };
 
   const handleOpenModal = () => {
     setVisible(true);
@@ -44,7 +48,7 @@ const ActivityNew: React.FC = () => {
         New
       </Button>
       <Modal open={open} onCancel={handleCloseModal} footer={null}>
-        <Form form={form} onFinish={handleFormSubmit}>
+        <Form form={form} onFinish={handleFormSubmit} style={{paddingTop:'30px'}}>
         <Form.Item
             name="description"
             label="Descripcion"
@@ -55,9 +59,8 @@ const ActivityNew: React.FC = () => {
           <Form.Item
             name="careerId"
             label="Carrera"
-            rules={[{ required: true, message: 'Please enter your email' }]}
           >
-            <Input />
+            <ForeignKeySelect onChange={handleForeignKeyChange} section={'carreras'}/>
           </Form.Item>
 
           <Form.Item>

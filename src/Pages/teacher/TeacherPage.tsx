@@ -98,32 +98,7 @@ const TeacherPage = () => {
         <span>{isActive ? 'Activo' : 'Inactivo'}</span>
       ),
     },
-    {
-      title: 'Action',
-      key: 'action',
-      render: (text: string, record: Item) => (
-        <Popconfirm
-          title="Are you sure you want to delete this item?"
-          onConfirm={() => handleDeleteData(record.id)}
-        >
-          <Button type="link" danger>
-            Delete
-          </Button>
-        </Popconfirm>
-      ),},
-      {
-        title: 'Action',
-        key: 'action',
-        render: (text: string, record: Item) => (
-          <Popconfirm
-            title="Are you sure you want to update this item?"
-            onConfirm={() => handleUpdateData(record.id)}
-          >
-            <Button type="link" danger>
-              Update
-            </Button>
-          </Popconfirm>
-        ),},]
+    ]
 
   
   return( <>

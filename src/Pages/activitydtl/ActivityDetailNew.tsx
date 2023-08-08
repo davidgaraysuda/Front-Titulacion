@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
-import { Button, Form, Input, Modal } from 'antd';
+import { Button, Form, Select, Modal } from 'antd';
+import ForeignKeyActivity from '../../components/ForeingKeyActivity';
+import ForeignKeyPracticedtl from '../../components/ForeingKeyPracticedtl';
 
 interface FormValues {
   name: string;
@@ -17,6 +19,12 @@ const ActivityDetailNew: React.FC = () => {
 
   const handleCloseModal = () => {
     setVisible(false);
+  };
+
+  const handleForeignKeyChangeActivity = (id: number) => {
+  };
+
+  const handleForeignKeyChangePracticedtl = (id: number) => {
   };
 
   const handleFormSubmit = (values: FormValues) => {
@@ -44,28 +52,31 @@ const ActivityDetailNew: React.FC = () => {
         New
       </Button>
       <Modal open={open} onCancel={handleCloseModal} footer={null}>
-        <Form form={form} onFinish={handleFormSubmit}>
+        <Form form={form} onFinish={handleFormSubmit} style={{paddingTop:'30px'}}>
+
         <Form.Item
             name="activitiesId"
             label="Actividades"
             rules={[{ required: true, message: 'Please enter your name' }]}
           >
-            <Input />
+            <ForeignKeyActivity onChange={handleForeignKeyChangeActivity} />
           </Form.Item>
           <Form.Item
             name="detailId"
             label="Detalle"
             rules={[{ required: true, message: 'Please enter your email' }]}
           >
-            <Input />
+            <ForeignKeyPracticedtl onChange={handleForeignKeyChangePracticedtl} />
           </Form.Item>
 
           <Form.Item
             name="checking"
             label="Revisado"
-            rules={[{ required: true, message: 'Please enter your email' }]}
           >
-            <Input />
+           <Select>
+              <Select.Option value={true}>Revisado</Select.Option>
+              <Select.Option value={false}>No Revisado</Select.Option>
+            </Select>
           </Form.Item>
 
           <Form.Item>

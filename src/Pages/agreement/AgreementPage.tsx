@@ -44,15 +44,10 @@ const AgreementPage = () => {
     setVisible(false);
   };
 
-  const handleOpenModalDocument = (linkDoc: string) => {
-    setDocumentLink(linkDoc);
-    setModalVisible(true);
+  const handleOpenNewWindow = (link: string) => {
+    window.open(link, '_blank');
   };
 
-  const handleCloseModalDocument = () => {
-    setDocumentLink('');
-    setModalVisible(false);
-  };
 
   const handleFormSubmit = (values: any) => {
     console.log(values);
@@ -89,6 +84,7 @@ const AgreementPage = () => {
     setVisible(false);
   };
 
+
   const columns = [
     {
       title: 'Fecha de inicio',
@@ -120,7 +116,7 @@ const AgreementPage = () => {
       title: 'Document',
       key: 'action',
       render: (_: any, record: Item) => (
-        <Button onClick={() => handleOpenModalDocument(record.linkDoc)}>View Document</Button>
+        <Button onClick={() => handleOpenNewWindow(record.linkDoc)}>View Document</Button>
       ),
     },
       ]
@@ -131,18 +127,6 @@ const AgreementPage = () => {
     <AgreementNew></AgreementNew>
   </Space>
   <Table dataSource={data} columns={columns} bordered />
-  <Modal
-        title="Document Viewer"
-        open={modalVisible}
-        onCancel={handleCloseModalDocument}
-        footer={null}
-        destroyOnClose
-        width={"250%"}
-      >
-        {documentLink && (
-          <iframe src={documentLink} width="100%" height="500px" frameBorder="0" title="Document" />
-        )}
-      </Modal>
   </>
   );
 };
