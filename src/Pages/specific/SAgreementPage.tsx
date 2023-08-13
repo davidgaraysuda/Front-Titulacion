@@ -1,6 +1,7 @@
 import {Button, Modal, Table, Space, Form, Input, message, Popconfirm } from 'antd';
 import React, { useEffect, useState } from 'react';
 import SAgreementNew from './SAgreementNew';
+import { api } from '../../services/api';
 
 interface Item {
   id:number, 
@@ -15,8 +16,7 @@ const SAgreementPage = () => {
 
   const fetchItems = async () => {
     try {
-      const response = await fetch('http://localhost:8081/specifics/list');
-      const data = await response.json();
+      const data = await api('/specifics/list'); 
       setData(data);
     } catch (error) {
       console.error(error);

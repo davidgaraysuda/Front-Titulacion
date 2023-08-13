@@ -1,8 +1,8 @@
 import {Button, Modal, Table, Space, Form, Input, message, Popconfirm } from 'antd';
 import React, { useEffect, useState } from 'react';
-import type { ColumnsType } from 'antd/es/table';
 import moment from 'moment';
 import PracticeNew from './PracticeNew';
+import { api } from '../../services/api';
 
 interface Item {
   practiceId:number, 
@@ -21,8 +21,7 @@ const PracticePage = () => {
 
   const fetchItems = async () => {
     try {
-      const response = await fetch('http://localhost:8081/practices/with/estudiante');
-      const data = await response.json();
+      const data = await api('/practices/with/estudiante'); 
       setData(data);
     } catch (error) {
       console.error(error);
@@ -31,8 +30,7 @@ const PracticePage = () => {
 
   const fetchItems2 = async () => {
     try {
-      const response = await fetch('http://localhost:8081/practicedtl');
-      const data = await response.json();
+      const data = await api('/practicedtl'); 
       setData(data);
     } catch (error) {
       console.error(error);

@@ -1,8 +1,7 @@
 import {Button, Modal, Table, Space, Form, Input, message, Popconfirm } from 'antd';
 import React, { useEffect, useState } from 'react';
-import type { ColumnsType } from 'antd/es/table';
-import axios from 'axios';
 import ActivityNew from './ActivityNew';
+import { api } from '../../services/api';
 
 interface Item {
   activityId:number, 
@@ -14,8 +13,7 @@ const ActivityPage = () => {
 
   const fetchItems = async () => {
     try {
-      const response = await fetch('http://localhost:8081/activity/with/carrera');
-      const data = await response.json();
+      const data = await api('activity/with/carrera'); 
       setData(data);
     } catch (error) {
       console.error(error);
@@ -59,18 +57,6 @@ const ActivityPage = () => {
     }
   };
 
-  const handleUpdateData = async (id: number) => {
-    try {
-      await fetch(`http://localhost:8081/activity/`, {
-        method: 'PUT',
-      });
-      setData(prevData => prevData.filter(data => data.activityId !== id));
-      message.success('Item update successfully');
-    } catch (error) {
-      console.error(error);
-      message.error('Failed to update item');
-    }
-  };
 
   const handleCancel = () => {
     setVisible(false);

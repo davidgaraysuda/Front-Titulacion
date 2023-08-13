@@ -1,6 +1,7 @@
 import {Button, Modal, Table, Space, Form, Input, message, Popconfirm } from 'antd';
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
+import { api } from '../../../services/api';
 
 interface Item {
   agreementId:number, 
@@ -16,8 +17,7 @@ const AgreementPage = () => {
 
   const fetchItems = async () => {
     try {
-      const response = await fetch('http://localhost:8081/agreement/expired');
-      const data = await response.json();
+      const data = await api('/agreement/expired'); 
       setData(data);
     } catch (error) {
       console.error(error);

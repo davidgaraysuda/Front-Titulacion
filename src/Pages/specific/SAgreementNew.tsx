@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Button, Form, Input, Modal, Select } from 'antd';
 import ForeignKeyAgreement from '../../components/ForeingKeyAgreement';
 import ForeignKeySelect from '../../components/ForeingKeySelect';
-
+import { api } from '../../services/api';
 
 interface FormValues {
   name: string;
@@ -29,22 +29,15 @@ const SAgreementNew: React.FC = () => {
   };
 
   const handleFormSubmit = (values: FormValues) => {
-    fetch('http://localhost:8081/specifics', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(values),
+    api('/specifics', 'POST', values)
+    .then(data => {
+      console.log(data);
+      handleCloseModal();
+      form.resetFields();
     })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        handleCloseModal();
-        form.resetFields();
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    .catch(error => {
+      console.error(error);
+    });
   };
 
   return (

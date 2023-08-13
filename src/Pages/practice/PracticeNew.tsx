@@ -3,7 +3,7 @@ import { Button, Form, Input, Modal, DatePicker, message, Select } from 'antd';
 import ForeignKeySelect from '../../components/ForeingKeySelect';
 import ForeignKeyStudent from '../../components/ForeingKeyStudent';
 import ForeignKeyTutor from '../../components/ForeingKeyTutor';
-import moment from 'moment';
+import { api } from '../../services/api';
 
 interface FormValues {
   name: string;
@@ -41,22 +41,15 @@ const PracticeNew: React.FC = () => {
   const handleForeignKeyChangeStudent = (id: number) => {};
 
   const handleFormSubmit = (values: FormValues) => {
-      fetch('http://localhost:8081/practices', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(values),
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          console.log(data);
-          handleCloseModal();
-          form.resetFields();
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+    api('/practices', 'POST', values)
+    .then(data => {
+      console.log(data);
+      handleCloseModal();
+      form.resetFields();
+    })
+    .catch(error => {
+      console.error(error);
+    });
   };
 
   return (

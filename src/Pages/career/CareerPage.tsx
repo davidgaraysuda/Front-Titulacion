@@ -1,9 +1,7 @@
 import {Button, Modal, Table, Space, Form, Input, message, Popconfirm } from 'antd';
 import React, { useEffect, useState } from 'react';
-import type { ColumnsType } from 'antd/es/table';
-import axios from 'axios';
 import CareerNew from './CareerNew';
-import CareerUpdate from './CareerUpdate';
+import { api } from '../../services/api';
 
 interface Item {
   id:number, 
@@ -14,8 +12,7 @@ const CareerPage = () => {
 
   const fetchItems = async () => {
     try {
-      const response = await fetch('http://localhost:8081/carreras');
-      const data = await response.json();
+      const data = await api('/carreras'); 
       setData(data);
     } catch (error) {
       console.error(error);
@@ -56,19 +53,6 @@ const CareerPage = () => {
     } catch (error) {
       console.error(error);
       message.error('Failed to delete item');
-    }
-  };
-
-  const handleUpdateData = async (id: number) => {
-    try {
-      await fetch(`http://localhost:8081/carrera/`, {
-        method: 'PUT',
-      });
-      setData(prevData => prevData.filter(data => data.id !== id));
-      message.success('Item update successfully');
-    } catch (error) {
-      console.error(error);
-      message.error('Failed to update item');
     }
   };
 

@@ -1,6 +1,7 @@
 import { Button, Modal, Table, Space, Tabs } from 'antd';
 import React, { useEffect, useState } from 'react';
 import SAgreementNew from '../SAgreementNew';
+import { api } from '../../../services/api';
 
 const { TabPane } = Tabs;
 
@@ -18,8 +19,7 @@ const SAgreementFilterCurrent = () => {
 
   const fetchItems = async (endpoint: string) => {
     try {
-      const response = await fetch(endpoint);
-      const data = await response.json();
+      const data = await api(endpoint); 
       setData(data);
     } catch (error) {
       console.error(error);
@@ -28,24 +28,24 @@ const SAgreementFilterCurrent = () => {
 
   useEffect(() => {
     // Determinar el endpoint según la pestaña activa
-    let endpoint = 'http://localhost:8081/specifics/current';
+    let endpoint = '/specifics/current';
     if (activeTab === '2') {
-      endpoint = 'http://localhost:8081/specifics/current/Desarrollo%20de%20Software';
+      endpoint = '/specifics/current/Desarrollo%20de%20Software';
     }
     if (activeTab === '3') {
-      endpoint = 'http://localhost:8081/specifics/current/Dise%C3%B1o';
+      endpoint = '/specifics/current/Dise%C3%B1o';
     }
     if (activeTab === '4') {
-      endpoint = 'http://localhost:8081/specifics/current/Enfermeria';
+      endpoint = '/specifics/current/Enfermeria';
     }
     if (activeTab === '5') {
-      endpoint = 'http://localhost:8081/specifics/current/Gastronom%C3%ADa';
+      endpoint = '/specifics/current/Gastronom%C3%ADa';
     }
     if (activeTab === '6') {
-      endpoint = 'http://localhost:8081/specifics/current/Marketing';
+      endpoint = '/specifics/current/Marketing';
     }
     if (activeTab === '7') {
-      endpoint = 'http://localhost:8081/specifics/current/Turismo';
+      endpoint = '/specifics/current/Turismo';
     }
 
     fetchItems(endpoint);

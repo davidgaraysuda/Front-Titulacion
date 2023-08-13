@@ -1,7 +1,6 @@
 import {Button, Modal, Table, Space, Form, Input, message, Popconfirm } from 'antd';
 import React, { useEffect, useState } from 'react';
-import type { ColumnsType } from 'antd/es/table';
-import axios from 'axios';
+import {api} from '../../services/api'
 import CompanyNew from './CompanyNew';
 
 interface Item {
@@ -25,8 +24,7 @@ const CompanyPage = () => {
 
   const fetchItems = async () => {
     try {
-      const response = await fetch('http://localhost:8081/company');
-      const data = await response.json();
+      const data = await api('/company'); 
       setData(data);
     } catch (error) {
       console.error(error);
@@ -81,19 +79,6 @@ const CompanyPage = () => {
     } catch (error) {
       console.error(error);
       message.error('Failed to delete item');
-    }
-  };
-
-  const handleUpdateData = async (id: number) => {
-    try {
-      await fetch(`http://localhost:8081/company/`, {
-        method: 'PUT',
-      });
-      setData(prevData => prevData.filter(data => data.id !== id));
-      message.success('Item update successfully');
-    } catch (error) {
-      console.error(error);
-      message.error('Failed to update item');
     }
   };
 

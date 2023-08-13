@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Spin, Statistic } from 'antd';
-import axios from 'axios';
+import { Card, Spin, Progress } from 'antd';
+import { api } from '../../services/api';
 
 interface Data {
-    specificCurrentNursing: number;
- 
+  specificCurrentNursing: number;
   // Agrega más propiedades según tu JSON
 }
 
@@ -12,15 +11,14 @@ const NursingReport: React.FC = () => {
   const [dataNursing, setDataNursing] = useState<Data | null>(null);
   const [loading, setLoading] = useState(true);
 
-
   useEffect(() => {
     fetchDataNursing();
   }, []);
 
   const fetchDataNursing = async () => {
     try {
-      const response = await axios.get<Data>('http://localhost:8081/specifics/reports/nursing');
-      setDataNursing(response.data);
+      const data = await api('/specifics/reports/nursing'); // Utiliza la función api
+      setDataNursing(data);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -32,14 +30,17 @@ const NursingReport: React.FC = () => {
       {loading ? (
         <Spin />
       ) : (
-        <Statistic
-        value={dataNursing?.specificCurrentNursing}
-        valueStyle={{ color: '#006d75', fontSize: "34px", fontWeight: 'bold' }}
-        prefix="Vigentes: "
-      />
+        <div style={{ textAlign: 'center' }}>
+          <Progress
+            type="dashboard"
+            percent={dataNursing?.specificCurrentNursing || 0}
+            status="active"
+            strokeColor="#006d75"
+          />
+          <p style={{ fontSize: '20px', fontWeight: 'bold', marginTop: '10px' }}>Vigentes: {dataNursing?.specificCurrentNursing}</p>
+        </div>
       )}
     </Card>
-    
   );
 };
 

@@ -1,5 +1,6 @@
 import {Button, Modal, Table} from 'antd';
 import React, { useEffect, useState } from 'react';
+import { api } from '../../../services/api';
 
 interface Item {
   id:number, 
@@ -14,8 +15,7 @@ const SAgreementFilterExpired = () => {
 
   const fetchItems = async () => {
     try {
-      const response = await fetch('http://localhost:8081/specifics/expired');
-      const data = await response.json();
+      const data = await api('/specifics/expired'); 
       setData(data);
     } catch (error) {
       console.error(error);

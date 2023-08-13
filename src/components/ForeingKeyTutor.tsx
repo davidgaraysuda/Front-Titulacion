@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, Button, Radio, Input } from 'antd';
-import axios from 'axios';
+import { api } from '../services/api';
+
 
 const { Button: RadioButton } = Radio;
 const { Search } = Input;
@@ -33,9 +34,7 @@ const ForeignKeyTutor: React.FC<ForeignKeySelectProps> = ({ onChange, formValue 
 
   const fetchForeignKeyData = async () => {
     try {
-      const response = await axios.get('http://localhost:8081/tutors/with/company');
-      const data: ForeignKeyOption[] = response.data;
-
+      const data: ForeignKeyOption[] = await api('/tutors/with/company');
       setOptions(data);
     } catch (error) {
       console.error('Error fetching foreign key data:', error);

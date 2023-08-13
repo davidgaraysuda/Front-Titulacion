@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Form, Input, Modal, DatePicker, Select, TimePicker } from 'antd';
-import moment, { Moment } from 'moment';
 import ForeignKeyPractice from '../../components/ForeingKeyPractice';
+import { api } from '../../services/api';
 
 const { Option } = Select;
 const format = 'h:mm a'; // Formato de 12 horas con AM/PM
@@ -29,22 +29,15 @@ const PracticedtlNew: React.FC = () => {
   };
 
   const handleFormSubmit = (values: FormValues) => {
-    fetch('http://localhost:8081/practicedtl', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(values),
+    api('/practicedtl', 'POST', values)
+    .then(data => {
+      console.log(data);
+      handleCloseModal();
+      form.resetFields();
     })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        handleCloseModal();
-        form.resetFields();
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    .catch(error => {
+      console.error(error);
+    });
   };
 
   const generateHourOptions = () => {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Select } from 'antd';
-import axios from 'axios';
+import { api } from '../services/api'; // Importa la función api
 
 const { Option } = Select;
 
@@ -14,7 +14,7 @@ interface ForeignKeySelectProps {
   section: string;
 }
 
-const ForeignKeyCareer: React.FC<ForeignKeySelectProps> = ({ onChange, section}) => {
+const ForeignKeyCareer: React.FC<ForeignKeySelectProps> = ({ onChange, section }) => {
   const [options, setOptions] = useState<ForeignKeyOption[]>([]);
 
   useEffect(() => {
@@ -23,9 +23,7 @@ const ForeignKeyCareer: React.FC<ForeignKeySelectProps> = ({ onChange, section})
 
   const fetchForeignKeyData = async () => {
     try {
-      const response = await axios.get('http://localhost:8081/'+ section); // Reemplaza '/api/foreign-keys' con la ruta real a tu endpoint del backend
-      const data: ForeignKeyOption[] = response.data;
-
+      const data = await api('/' + section); // Utiliza la función api
       setOptions(data);
     } catch (error) {
       console.error('Error fetching foreign key data:', error);

@@ -1,6 +1,7 @@
 import {Button, Modal, Table, Space, message, Popconfirm } from 'antd';
 import { useEffect, useState } from 'react';
 import TeacherNew from './TeacherNew';
+import { api } from '../../services/api';
 
 interface Item {
   id:number, 
@@ -12,8 +13,7 @@ const TeacherPage = () => {
 
   const fetchItems = async () => {
     try {
-      const response = await fetch('http://localhost:8081/teachers/with/career');
-      const data = await response.json();
+      const data = await api('/teachers/with/career'); 
       setData(data);
     } catch (error) {
       console.error(error);

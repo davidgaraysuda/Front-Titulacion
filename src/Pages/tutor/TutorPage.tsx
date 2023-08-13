@@ -1,6 +1,7 @@
 import {Button, Modal, Table, Space, Form, Input, message, Popconfirm } from 'antd';
 import React, { useEffect, useState } from 'react';
 import TutorNew from './TutorNew';
+import { api } from '../../services/api';
 
 interface Item {
   id:number, 
@@ -13,8 +14,7 @@ const TutorPage = () => {
 
   const fetchItems = async () => {
     try {
-      const response = await fetch('http://localhost:8081/tutors/with/company');
-      const data = await response.json();
+      const data = await api('/tutors/with/company'); 
       setData(data);
     } catch (error) {
       console.error(error);

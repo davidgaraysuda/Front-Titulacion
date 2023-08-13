@@ -1,8 +1,7 @@
 import {Button, Modal, Table, Space, Form, Input, message, Popconfirm } from 'antd';
 import React, { useEffect, useState } from 'react';
-import type { ColumnsType } from 'antd/es/table';
-import axios from 'axios';
 import ActivityDetailNew from './ActivityDetailNew';
+import { api } from '../../services/api';
 
 interface Item {
   activityDetailId:number, 
@@ -14,8 +13,7 @@ const ActivityDetailPage = () => {
 
   const fetchItems = async () => {
     try {
-      const response = await fetch('http://localhost:8081/activitydtl');
-      const data = await response.json();
+      const data = await api('/activitydtl'); 
       setData(data);
     } catch (error) {
       console.error(error);

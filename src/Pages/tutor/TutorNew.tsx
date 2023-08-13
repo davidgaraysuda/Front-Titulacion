@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Form, Input, Modal, Select } from 'antd';
-import ForeignKeySelect from '../../components/ForeingKeySelect';
 import ForeignKeyCompany from '../../components/ForeingKeyCompany';
+import { api } from '../../services/api';
 
 interface FormValues {
   name: string;
@@ -30,22 +30,15 @@ const TutorNew: React.FC = () => {
   };
 
   const handleFormSubmit = (values: FormValues) => {
-    fetch('http://localhost:8081/tutors', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(values),
+    api('/tutors', 'POST', values)
+    .then(data => {
+      console.log(data);
+      handleCloseModal();
+      form.resetFields();
     })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        handleCloseModal();
-        form.resetFields();
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    .catch(error => {
+      console.error(error);
+    });
   };
 
   return (

@@ -2,6 +2,7 @@ import {Button, Modal, Table, Space, Form, Input, message, Popconfirm } from 'an
 import React, { useEffect, useState } from 'react';
 import moment from 'moment';
 import AgreementNew from '../AgreementNew';
+import { api } from '../../../services/api';
 
 interface Item {
   agreementId:number, 
@@ -17,8 +18,7 @@ const AgreementPage = () => {
 
   const fetchItems = async () => {
     try {
-      const response = await fetch('http://localhost:8081/agreement/full');
-      const data = await response.json();
+      const data = await api('/agreement/full'); 
       setData(data);
     } catch (error) {
       console.error(error);
@@ -64,19 +64,6 @@ const AgreementPage = () => {
     } catch (error) {
       console.error(error)
       message.error('Failed to delete item');
-    }
-  };
-
-  const handleUpdateData = async (agreementId: number) => {
-    try {
-      await fetch(`http://localhost:8081/agreement/`, {
-        method: 'PUT',
-      });
-      setData(prevData => prevData.filter(data => data.agreementId !== agreementId));
-      message.success('Item update successfully');
-    } catch (error) {
-      console.error(error);
-      message.error('Failed to update item');
     }
   };
 

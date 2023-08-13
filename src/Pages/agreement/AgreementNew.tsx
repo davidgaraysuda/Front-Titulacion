@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Form, Input, Modal, Select, DatePicker, message } from 'antd';
 import ForeignKeyCompany from '../../components/ForeingKeyCompany';
-import CompanyNew from '../company/CompanyNew';
+import { api } from '../../services/api';
 
 interface FormValues {
   name: string;
@@ -39,22 +39,15 @@ const AgreementNew: React.FC = () => {
   };
 
   const handleFormSubmit = (values: FormValues) => {
-    fetch('http://localhost:8081/agreement', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(values),
+    api('/agreement', 'POST', values)
+    .then(data => {
+      console.log(data);
+      handleCloseModal();
+      form.resetFields();
     })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        handleCloseModal();
-        form.resetFields();
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    .catch(error => {
+      console.error(error);
+    });
     };
 
   return (

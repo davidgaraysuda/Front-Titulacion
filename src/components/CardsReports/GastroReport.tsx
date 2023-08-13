@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Spin, Statistic } from 'antd';
-import axios from 'axios';
+import { Card, Spin, Progress } from 'antd';
+import { api } from '../../services/api';
 
 interface Data {
-    specificCurrentGastro: number;
- 
+  specificCurrentGastro: number;
   // Agrega más propiedades según tu JSON
 }
 
@@ -12,15 +11,14 @@ const GastroReport: React.FC = () => {
   const [dataGastronomy, setDataGastronomy] = useState<Data | null>(null);
   const [loading, setLoading] = useState(true);
 
-
   useEffect(() => {
     fetchDataGastronomy();
   }, []);
 
   const fetchDataGastronomy = async () => {
     try {
-      const response = await axios.get<Data>('http://localhost:8081/specifics/reports/gastronomy');
-      setDataGastronomy(response.data);
+      const data = await api('/specifics/reports/gastronomy'); // Utiliza la función api
+      setDataGastronomy(data);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -32,14 +30,19 @@ const GastroReport: React.FC = () => {
       {loading ? (
         <Spin />
       ) : (
-        <Statistic
-        value={dataGastronomy?.specificCurrentGastro}
-        valueStyle={{ color: '#7cb305', fontSize: "34px", fontWeight: 'bold' }}
-        prefix="Vigentes: "
-      />
+        <div style={{ textAlign: 'center' }}>
+          <Progress
+            type="dashboard"
+            percent={dataGastronomy?.specificCurrentGastro || 0}
+            format={percent => `${percent}%`}
+            strokeColor="#7cb305"
+          />
+          <p style={{ fontSize: '20px', fontWeight: 'bold', marginTop: '10px' }}>
+            Vigentes: {dataGastronomy?.specificCurrentGastro}
+          </p>
+        </div>
       )}
     </Card>
-    
   );
 };
 

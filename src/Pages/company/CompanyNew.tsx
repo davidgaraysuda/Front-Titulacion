@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Button, Form, Input, Modal, Select } from 'antd';
-import MapModal from '../../components/MapModal';
+import getHeadersAndToken from '../../utils/Headers';
+import { api } from '../../services/api';
 
 interface FormValues {
   name: string;
@@ -43,24 +44,16 @@ const CompanyNew: React.FC = () => {
 
   const handleFormSubmit = (values: FormValues) => {
     console.log('Nuevo valor:', values);
-    fetch('http://localhost:8081/company', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        
-      },
-      
-      body: JSON.stringify(values),
+
+    api('/company', 'POST', values)
+    .then(data => {
+      console.log(data);
+      handleCloseModal();
+      form.resetFields();
     })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        handleCloseModal();
-        form.resetFields();
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    .catch(error => {
+      console.error(error);
+    });
   };
 
   return (

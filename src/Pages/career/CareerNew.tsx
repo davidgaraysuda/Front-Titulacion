@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Button, Form, Input, Modal } from 'antd';
+import { api } from '../../services/api';
 
 interface FormValues {
   name: string;
@@ -20,22 +21,15 @@ const CareerNew: React.FC = () => {
   };
 
   const handleFormSubmit = (values: FormValues) => {
-    fetch('http://localhost:8081/carreras', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(values),
+    api('/carreras', 'POST', values)
+    .then(data => {
+      console.log(data);
+      handleCloseModal();
+      form.resetFields();
     })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        handleCloseModal();
-        form.resetFields();
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    .catch(error => {
+      console.error(error);
+    });
   };
 
   return (

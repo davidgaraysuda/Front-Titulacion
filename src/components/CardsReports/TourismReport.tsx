@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Spin, Statistic } from 'antd';
-import axios from 'axios';
+import { Card, Spin, Progress } from 'antd';
+import { api } from '../../services/api';
 
 interface Data {
-    specificCurrentTourism: number;
- 
+  specificCurrentTourism: number;
   // Agrega más propiedades según tu JSON
 }
 
@@ -12,15 +11,14 @@ const TourismReport: React.FC = () => {
   const [dataTourism, setDataTourism] = useState<Data | null>(null);
   const [loading, setLoading] = useState(true);
 
-
   useEffect(() => {
     fetchDataTourism();
   }, []);
 
   const fetchDataTourism = async () => {
     try {
-      const response = await axios.get<Data>('http://localhost:8081/specifics/reports/tourism');
-      setDataTourism(response.data);
+      const data = await api('/specifics/reports/tourism'); // Utiliza la función api
+      setDataTourism(data);
       setLoading(false);
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -32,14 +30,17 @@ const TourismReport: React.FC = () => {
       {loading ? (
         <Spin />
       ) : (
-        <Statistic
-        value={dataTourism?.specificCurrentTourism}
-        valueStyle={{ color: '#135200', fontSize: "34px", fontWeight: 'bold' }}
-        prefix="Vigentes: "
-      />
+        <div style={{ textAlign: 'center' }}>
+          <Progress
+            type="dashboard"
+            percent={dataTourism?.specificCurrentTourism || 0}
+            format={percent => `${percent}%`}
+            strokeColor="#135200"
+          />
+          <p style={{ fontSize: '20px', fontWeight: 'bold', marginTop: '10px' }}>Vigentes: {dataTourism?.specificCurrentTourism}</p>
+        </div>
       )}
     </Card>
-    
   );
 };
 

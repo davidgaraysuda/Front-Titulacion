@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Modal, Button, Radio, Input } from 'antd';
-import axios from 'axios';
+import { api } from '../services/api'; // Importa la función api
 
 const { Button: RadioButton } = Radio;
 const { Search } = Input;
@@ -32,9 +32,7 @@ const ForeignKeyAgreement: React.FC<ForeignKeySelectProps> = ({ onChange, formVa
 
   const fetchForeignKeyData = async () => {
     try {
-      const response = await axios.get('http://localhost:8081/agreement/full');
-      const data: ForeignKeyOption[] = response.data;
-
+      const data: ForeignKeyOption[] = await api('/agreement/full');
       setOptions(data);
     } catch (error) {
       console.error('Error fetching foreign key data:', error);
@@ -74,12 +72,12 @@ const ForeignKeyAgreement: React.FC<ForeignKeySelectProps> = ({ onChange, formVa
   return (
     <>
       <Button onClick={handleOpenModal}>Open Modal</Button>
-      <Modal open={modalVisible} onCancel={handleCloseModal} onOk={handleConfirm}>
+      <Modal visible={modalVisible} onCancel={handleCloseModal} onOk={handleConfirm}>
         <Search placeholder="Search by company" onChange={(e) => handleSearch(e.target.value)} />
         <Radio.Group onChange={(e) => handleSelectChange(e.target.value)} value={selectedOption}>
           <ul>
             {filteredOptions.map((option) => (
-              <li key={option.id} style={{paddingTop:'10px'}}>
+              <li key={option.id} style={{ paddingTop: '10px' }}>
                 <RadioButton value={option.id}>{option.company}</RadioButton>
               </li>
             ))}

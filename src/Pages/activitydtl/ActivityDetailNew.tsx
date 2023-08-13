@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Button, Form, Select, Modal } from 'antd';
 import ForeignKeyActivity from '../../components/ForeingKeyActivity';
 import ForeignKeyPracticedtl from '../../components/ForeingKeyPracticedtl';
+import { api } from '../../services/api';
 
 interface FormValues {
   name: string;
@@ -28,22 +29,15 @@ const ActivityDetailNew: React.FC = () => {
   };
 
   const handleFormSubmit = (values: FormValues) => {
-    fetch('http://localhost:8081/activitydtl', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(values),
+    api('/activitydtl', 'POST', values)
+    .then(data => {
+      console.log(data);
+      handleCloseModal();
+      form.resetFields();
     })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        handleCloseModal();
-        form.resetFields();
-      })
-      .catch(error => {
-        console.error(error);
-      });
+    .catch(error => {
+      console.error(error);
+    });
   };
 
   return (

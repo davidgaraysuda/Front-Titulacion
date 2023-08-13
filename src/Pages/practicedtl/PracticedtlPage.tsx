@@ -1,9 +1,8 @@
 import {Button, Modal, Table, Space, Form, Input, message, Popconfirm } from 'antd';
 import React, { useEffect, useState } from 'react';
-import type { ColumnsType } from 'antd/es/table';
-import axios from 'axios';
 import moment from 'moment';
 import PracticedtlNew from './PracticedtlNew';
+import { api } from '../../services/api';
 
 interface Item {
   id:number, 
@@ -15,8 +14,7 @@ const PracticedtlPage = () => {
 
   const fetchItems = async () => {
     try {
-      const response = await fetch('http://localhost:8081/practicedtl/full');
-      const data = await response.json();
+      const data = await api('/practicedtl/full'); 
       setData(data);
     } catch (error) {
       console.error(error);
@@ -60,18 +58,6 @@ const PracticedtlPage = () => {
     }
   };
 
-  const handleUpdateData = async (id: number) => {
-    try {
-      await fetch(`http://localhost:8081/practicedtl/`, {
-        method: 'PUT',
-      });
-      setData(prevData => prevData.filter(data => data.id !== id));
-      message.success('Item update successfully');
-    } catch (error) {
-      console.error(error);
-      message.error('Failed to update item');
-    }
-  };
 
   const handleCancel = () => {
     setVisible(false);

@@ -1,28 +1,27 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { Layout } from 'antd';
-import SiderMenu from './components/SiderMenu';
-import Home from './Pages/Home';
-import AgreementPage from './Pages/agreement/AgreementPage';
-import SAgreementPage from './Pages/specific/SAgreementPage';
-import ActivityPage from './Pages/activity/ActivityPage';
-import ActivityDetailPage from './Pages/activitydtl/ActivityDetailPage';
-import PracticePage from './Pages/practice/PracticePage';
-import PracticedtlPage from './Pages/practicedtl/PracticedtlPage';
-import CareerPage from './Pages/career/CareerPage';
-import CompanyPage from './Pages/company/CompanyPage';
-import StudentPage from './Pages/student/StudentPage';
-import TutorPage from './Pages/tutor/TutorPage';
-import TeacherPage from './Pages/teacher/TeacherPage';
-import Contact from './Pages/Contact';
-import './index.css';
-import SAgreementFilterCareer from './Pages/specific/filter/SAgreementFilterCareer';
-
+import React, { useContext } from 'react';
+import SliderMenu from './components/SiderMenu';
+import { AppContext } from './context/AppContext';
+import Login from './login/Login';
 
 function App() {
+  const appContext = useContext(AppContext);
+
+  if (!appContext) {
+    throw new Error("Contexto no proporcionado");
+  }
+
+  const { loggedIn } = appContext;
+
   return (
     <BrowserRouter>
       <Layout>
-        <SiderMenu />
+        {loggedIn ? (
+          <SliderMenu />
+        ) : (
+          <Login />
+        )}
       </Layout>
     </BrowserRouter>
   );
