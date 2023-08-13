@@ -50,14 +50,14 @@ const ActivityDetailNew: React.FC = () => {
         <Form.Item
             name="activitiesId"
             label="Actividades"
-            rules={[{ required: true, message: 'Please enter your name' }]}
+            rules={[{ required: true, message: 'Por favor seleccione la actividad' }]}
           >
             <ForeignKeyActivity onChange={handleForeignKeyChangeActivity} />
           </Form.Item>
           <Form.Item
             name="detailId"
             label="Detalle"
-            rules={[{ required: true, message: 'Please enter your email' }]}
+            rules={[{ required: true, message: 'Por favor seleccione la Practica' }]}
           >
             <ForeignKeyPracticedtl onChange={handleForeignKeyChangePracticedtl} />
           </Form.Item>

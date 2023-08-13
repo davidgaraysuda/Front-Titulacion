@@ -88,21 +88,21 @@ const PracticeNew: React.FC = () => {
           <Form.Item
             name="studentId"
             label="Estudiante"
-            rules={[{ required: true, message: 'Please enter your email' }]}
+            rules={[{ required: true, message: 'Seleccione el estudiante' }]}
           >
             <ForeignKeyStudent onChange={handleForeignKeyChangeStudent} />
           </Form.Item>
           <Form.Item
             name="tutorId"
             label="Tutor Empresarial"
-            rules={[{ required: true, message: 'Please enter your email' }]}
+            rules={[{ required: true, message: 'Seleccione el tutor empresarial' }]}
           >
             <ForeignKeyTutor onChange={handleForeignKeyChange} />
           </Form.Item>
           <Form.Item
             name="teacherId"
             label="Tutor Academico"
-            rules={[{ required: true, message: 'Please enter your email' }]}
+            rules={[{ required: true, message: 'Seleccione el tutor academico' }]}
           >
             <ForeignKeySelect onChange={handleForeignKeyChange} section={'teachers'} />
           </Form.Item>

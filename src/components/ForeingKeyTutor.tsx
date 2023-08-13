@@ -75,7 +75,7 @@ const ForeignKeyTutor: React.FC<ForeignKeySelectProps> = ({ onChange, formValue 
     <>
       <Button onClick={handleOpenModal}>Open Modal</Button>
       <Modal open={modalVisible} onCancel={handleCloseModal} onOk={handleConfirm}>
-        <Search placeholder="Search by name" onChange={(e) => handleSearch(e.target.value)} />
+        <Search placeholder="Buscar por nombre del tutor" onChange={(e) => handleSearch(e.target.value)} />
         <Radio.Group onChange={(e) => handleSelectChange(e.target.value)} value={selectedOption}>
           <ul>
             {filteredOptions.map((option) => (

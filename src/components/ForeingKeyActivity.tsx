@@ -73,7 +73,7 @@ const ForeignKeyActivity: React.FC<ForeignKeySelectProps> = ({ onChange, formVal
     <>
       <Button onClick={handleOpenModal}>Open Modal</Button>
       <Modal open={modalVisible} onCancel={handleCloseModal} onOk={handleConfirm}>
-        <Search placeholder="Search by description" onChange={(e) => handleSearch(e.target.value)} />
+        <Search placeholder="Buscar por Actividad" onChange={(e) => handleSearch(e.target.value)} />
         <Radio.Group onChange={(e) => handleSelectChange(e.target.value)} value={selectedOption}>
           <ul>
             {filteredOptions.map((option) => (

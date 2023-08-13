@@ -73,7 +73,7 @@ const ForeignKeyAgreement: React.FC<ForeignKeySelectProps> = ({ onChange, formVa
     <>
       <Button onClick={handleOpenModal}>Open Modal</Button>
       <Modal visible={modalVisible} onCancel={handleCloseModal} onOk={handleConfirm}>
-        <Search placeholder="Search by company" onChange={(e) => handleSearch(e.target.value)} />
+        <Search placeholder="Buscar por empresa" onChange={(e) => handleSearch(e.target.value)} />
         <Radio.Group onChange={(e) => handleSelectChange(e.target.value)} value={selectedOption}>
           <ul>
             {filteredOptions.map((option) => (

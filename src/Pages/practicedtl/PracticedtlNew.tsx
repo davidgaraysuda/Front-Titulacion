@@ -65,7 +65,7 @@ const PracticedtlNew: React.FC = () => {
           <Form.Item
             name="actualDate"
             label="Fecha de la practica"
-            rules={[{ required: true, message: 'Please enter your name' }]}
+            rules={[{ required: true, message: 'Ingrese la fecha que se realizó la practica' }]}
           >
             <DatePicker format="YYYY-MM-DD" />
           </Form.Item>
@@ -92,7 +92,7 @@ const PracticedtlNew: React.FC = () => {
           <Form.Item
             name="totalHours"
             label="Total de horas"
-            rules={[{ required: true, message: 'Please enter your email' }]}
+            rules={[{ required: true, message: 'Ingrese el numero de horas realizadas' }]}
           >
             <Select>
               {[...Array(8)].map((_, index) => (
@@ -113,7 +113,7 @@ const PracticedtlNew: React.FC = () => {
           <Form.Item
             name="practiceId"
             label="Practica destinada"
-            rules={[{ required: true, message: 'Please enter a message' }]}
+            rules={[{ required: true, message: 'Seleccione la practica' }]}
           >
             <ForeignKeyPractice onChange={handleForeignKeyChange} />
           </Form.Item>

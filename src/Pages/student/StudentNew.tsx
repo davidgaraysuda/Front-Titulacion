@@ -48,35 +48,35 @@ const StudentNew: React.FC = () => {
         <Form.Item
             name="nui"
             label="Cedula"
-            rules={[{ required: true, message: 'Please enter your name' }]}
+            rules={[{ required: true, message: 'Ingrese el numero de cedula' }]}
           >
             <Input />
           </Form.Item>
           <Form.Item
             name="name"
             label="Nombres"
-            rules={[{ required: true, message: 'Please enter your email' }]}
+            rules={[{ required: true, message: 'Ingrese los nombres del estudiante' }]}
           >
             <Input />
           </Form.Item>
           <Form.Item
             name="lastname"
             label="Apellidos"
-            rules={[{ required: true, message: 'Please enter your email' }]}
+            rules={[{ required: true, message: 'Ingrese los apellidos del estudiante' }]}
           >
             <Input />
           </Form.Item>
           <Form.Item
             name="email"
             label="Mail"
-            rules={[{ required: true, message: 'Please enter a message' }]}
+            rules={[{ required: true, message: 'Ingrese el email del estudiante' }]}
           >
             <Input />
           </Form.Item>
           <Form.Item
             name="phone"
             label="Celular"
-            rules={[{ required: true, message: 'Please enter a message' }]}
+            rules={[{ required: true, message: 'Ingrese el numero celular del estudiante' }]}
           >
             <Input />
           </Form.Item>

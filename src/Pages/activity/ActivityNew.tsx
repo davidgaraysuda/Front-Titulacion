@@ -45,7 +45,7 @@ const ActivityNew: React.FC = () => {
         <Form.Item
             name="description"
             label="Descripcion"
-            rules={[{ required: true, message: 'Please enter your name' }]}
+            rules={[{ required: true, message: 'Por favor ingrese la descripción de la actividad' }]}
           >
             <Input />
           </Form.Item>
