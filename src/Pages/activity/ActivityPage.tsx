@@ -40,7 +40,6 @@ const ActivityPage = () => {
   };
 
   const handleFormSubmit = (values: any) => {
-    console.log(values);
     handleCloseModal();
   };
 

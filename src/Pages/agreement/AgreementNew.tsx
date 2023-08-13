@@ -41,7 +41,6 @@ const AgreementNew: React.FC = () => {
   const handleFormSubmit = (values: FormValues) => {
     api('/agreement', 'POST', values)
     .then(data => {
-      console.log(data);
       handleCloseModal();
       form.resetFields();
     })

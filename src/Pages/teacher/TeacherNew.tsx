@@ -23,13 +23,11 @@ const TeacherNew: React.FC = () => {
 
   const handleForeignKeyChange = (value: number) => {
     // Aquí puedes realizar acciones con el valor seleccionado
-    console.log('Llave foránea seleccionada:', value);
   };
 
   const handleFormSubmit = (values: FormValues) => {
     api('/teachers', 'POST', values)
     .then(data => {
-      console.log(data);
       handleCloseModal();
       form.resetFields();
     })

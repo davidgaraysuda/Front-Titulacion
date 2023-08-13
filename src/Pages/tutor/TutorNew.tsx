@@ -26,13 +26,11 @@ const TutorNew: React.FC = () => {
 
   const handleForeignKeyChange = (value: number) => {
     // Aquí puedes realizar acciones con el valor seleccionado
-    console.log('Llave foránea seleccionada:', value);
   };
 
   const handleFormSubmit = (values: FormValues) => {
     api('/tutors', 'POST', values)
     .then(data => {
-      console.log(data);
       handleCloseModal();
       form.resetFields();
     })

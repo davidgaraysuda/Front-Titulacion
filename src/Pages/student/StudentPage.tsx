@@ -37,7 +37,6 @@ const StudentPage = () => {
   };
 
   const handleFormSubmit = (values: any) => {
-    console.log(values);
     handleCloseModal();
   };
 

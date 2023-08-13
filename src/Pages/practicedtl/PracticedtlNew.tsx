@@ -31,7 +31,6 @@ const PracticedtlNew: React.FC = () => {
   const handleFormSubmit = (values: FormValues) => {
     api('/practicedtl', 'POST', values)
     .then(data => {
-      console.log(data);
       handleCloseModal();
       form.resetFields();
     })

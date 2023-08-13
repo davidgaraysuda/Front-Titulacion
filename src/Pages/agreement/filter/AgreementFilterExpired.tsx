@@ -48,7 +48,6 @@ const AgreementPage = () => {
   };
 
   const handleFormSubmit = (values: any) => {
-    console.log(values);
     handleCloseModal();
   };
 

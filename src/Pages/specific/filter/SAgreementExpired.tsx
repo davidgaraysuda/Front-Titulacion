@@ -50,7 +50,6 @@ const SAgreementFilterExpired = () => {
   };
 
   const handleFormSubmit = (values: any) => {
-    console.log(values);
     handleCloseModal();
   };
 

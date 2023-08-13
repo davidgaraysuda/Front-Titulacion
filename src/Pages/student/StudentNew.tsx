@@ -30,7 +30,6 @@ const StudentNew: React.FC = () => {
 
     api('/students', 'POST', values)
     .then(data => {
-      console.log(data);
       handleCloseModal();
       form.resetFields();
     })

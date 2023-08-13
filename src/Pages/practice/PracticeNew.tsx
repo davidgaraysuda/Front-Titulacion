@@ -43,7 +43,6 @@ const PracticeNew: React.FC = () => {
   const handleFormSubmit = (values: FormValues) => {
     api('/practices', 'POST', values)
     .then(data => {
-      console.log(data);
       handleCloseModal();
       form.resetFields();
     })

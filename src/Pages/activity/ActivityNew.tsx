@@ -27,7 +27,6 @@ const ActivityNew: React.FC = () => {
   const handleFormSubmit = (values: FormValues) => {
     api('/activity', 'POST', values)
     .then(data => {
-      console.log(data);
       handleCloseModal();
       form.resetFields();
     })

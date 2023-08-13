@@ -67,7 +67,6 @@ const PracticePage = () => {
   };
 
   const handleFormSubmit = (values: any) => {
-    console.log(values);
     handleCloseModal();
   };
 

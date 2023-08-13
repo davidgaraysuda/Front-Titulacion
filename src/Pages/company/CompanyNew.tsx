@@ -35,7 +35,6 @@ const CompanyNew: React.FC = () => {
 
   const handleToggleChange = (value: boolean) => {
     // Aquí puedes realizar acciones con el nuevo valor
-    console.log('Nuevo valor:', value);
   };
 
   const handleSaveAddress = (address: string) => {
@@ -43,11 +42,9 @@ const CompanyNew: React.FC = () => {
   };
 
   const handleFormSubmit = (values: FormValues) => {
-    console.log('Nuevo valor:', values);
 
     api('/company', 'POST', values)
     .then(data => {
-      console.log(data);
       handleCloseModal();
       form.resetFields();
     })
