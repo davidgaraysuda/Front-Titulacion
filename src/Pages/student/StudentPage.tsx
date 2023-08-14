@@ -14,7 +14,7 @@ const StudentPage = () => {
 
   const fetchItems = async () => {
     try {
-      const data = await api('/teachers/with/career'); 
+      const data = await api('/with/carrera'); 
       setData(data);
     } catch (error) {
       console.error(error);
