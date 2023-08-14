@@ -13,7 +13,7 @@ const ActivityPage = () => {
 
   const fetchItems = async () => {
     try {
-      const data = await api('activity/with/carrera'); 
+      const data = await api('/activity/with/carrera'); 
       setData(data);
     } catch (error) {
       console.error(error);

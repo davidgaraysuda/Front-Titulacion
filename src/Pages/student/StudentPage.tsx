@@ -68,18 +68,30 @@ const StudentPage = () => {
   const columns = [
     {
       title: 'Identificación',
-      dataIndex: 'identifiacion',
+      dataIndex: 'nui',
       key: 'identifiacion',
     },
     {
       title: 'Nombres',
-      dataIndex: 'nombres',
-      key: 'nombres',
+      dataIndex: 'name',
+      key: 'name',
     },
     {
       title: 'Apellidos',
-      dataIndex: 'apellido1',
-      key: 'apellido1',
+      dataIndex: 'lastname',
+      key: 'lastname',
+    },
+
+    {
+      title: 'Email',
+      dataIndex: 'email',
+      key: 'email',
+    },
+
+    {
+      title: 'Celular',
+      dataIndex: 'phone',
+      key: 'phone',
     },
 
     {
