@@ -96,8 +96,8 @@ const StudentPage = () => {
 
     {
       title: 'Carrera',
-      dataIndex: 'carrera',
-      key: 'carrera',
+      dataIndex: 'career',
+      key: 'career',
     },
 
     {
