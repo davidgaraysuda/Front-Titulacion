@@ -15,6 +15,7 @@ interface FormValues {
 const PracticedtlNew: React.FC = () => {
   const [open, setVisible] = useState(false);
   const [form] = Form.useForm();
+  const [date, setDate] = useState<Date | null>(null);
 
   const handleOpenModal = () => {
     setVisible(true);
@@ -26,6 +27,10 @@ const PracticedtlNew: React.FC = () => {
 
   const handleForeignKeyChange = (value: number) => {
 
+  };
+
+  const handleDateChange = (date: any) => {
+    setDate(date);
   };
 
   const handleFormSubmit = (values: FormValues) => {
@@ -67,7 +72,7 @@ const PracticedtlNew: React.FC = () => {
             label="Fecha de la practica"
             rules={[{ required: true, message: 'Ingrese la fecha que se realizó la practica' }]}
           >
-            <DatePicker format="YYYY-MM-DD" />
+            <DatePicker format="YYYY-MM-DD" onChange={handleDateChange}/>
           </Form.Item>
           <Form.Item
             name="startTime"

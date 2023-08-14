@@ -32,7 +32,7 @@ const ForeignKeyPracticedtl: React.FC<ForeignKeySelectProps> = ({ onChange, form
 
   const fetchForeignKeyData = async () => {
     try {
-      const data: ForeignKeyOption[] = await api('/practicedtl/full');
+      const data: ForeignKeyOption[] = await api('/practicedtl');
       setOptions(data);
     } catch (error) {
       console.error('Error fetching foreign key data:', error);
