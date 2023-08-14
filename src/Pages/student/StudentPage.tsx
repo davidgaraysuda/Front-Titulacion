@@ -1,8 +1,8 @@
 import { Button, Modal, Table, Space, Form, Input, message, Popconfirm } from 'antd';
 import React, { useEffect, useState } from 'react';
-import type { ColumnsType } from 'antd/es/table';
 import axios from 'axios';
 import StudentNew from './StudentNew';
+import { api } from '../../services/api';
 
 interface Item {
   studentId: number;
@@ -14,8 +14,7 @@ const StudentPage = () => {
 
   const fetchItems = async () => {
     try {
-      const response = await axios.get('https://its.academicok.com/api?a=datospracticasmatriculados&key=458466658');
-      const data = response.data;
+      const data = await api('/teachers/with/career'); 
       setData(data);
     } catch (error) {
       console.error(error);

@@ -6,7 +6,7 @@ interface Credentials {
 }
 
 
-const API_BASE_URL = 'http://localhost:8081'; // Reemplaza con la URL real de tu API
+const API_BASE_URL = 'https://sudamericanoconv.up.railway.app'; // Reemplaza con la URL real de tu API
 
 export const api = async (
     url: string,
@@ -36,7 +36,7 @@ export const api = async (
   const login = async (credentials: Credentials) => {
     const cokieActual = document.cookie;
     try {
-      const response = await fetch('http://localhost:8081/api/v1/auth/authenticate', {
+      const response = await fetch('https://sudamericanoconv.up.railway.app/api/v1/auth/authenticate', {
         method: 'POST',
         headers: {
           'Access-Control-Allow-Origin': '*',
