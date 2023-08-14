@@ -35,7 +35,7 @@ const ForeignKeyStudent: React.FC<ForeignKeySelectProps> = ({ onChange, formValu
 
   const fetchForeignKeyData = async () => {
     try {
-      const data: ForeignKeyOption[] = await api('/students/with/career');
+      const data: ForeignKeyOption[] = await api('/students/with/carrera');
       setOptions(data);
     } catch (error) {
       console.error('Error fetching foreign key data:', error);
