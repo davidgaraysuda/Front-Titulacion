@@ -14,7 +14,7 @@ const PracticedtlPage = () => {
 
   const fetchItems = async () => {
     try {
-      const data = await api('/practicedtl/full'); 
+      const data = await api('/practicedtl'); 
       setData(data);
     } catch (error) {
       console.error(error);
